@@ -1,0 +1,67 @@
+﻿<UserControl
+    x:Class="GeekShow.View.SearchTvShowView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:GeekShow.View"
+    xmlns:converters="using:GeekShow.View.Converters"
+    xmlns:component="using:GeekShow.Component"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <converters:BooleanInverter x:Key="BooleanInverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox
+            Grid.Row="0" Grid.Column="0"
+            PlaceholderText="Search a Tv Show"
+            IsSpellCheckEnabled="false"
+            IsEnabled="{Binding Path=IsSearchInProgress, Mode=OneWay, Converter={StaticResource BooleanInverter}}"
+            Text="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            KeyDown="TextBox_KeyDown"/>
+
+        <AppBarButton
+            x:Name="SearchButton"
+            Grid.Row="0" Grid.Column="1"
+            Margin="-15,-2,0,0"
+            Icon="Find"
+            IsEnabled="{Binding Path=IsSearchInProgress, Mode=OneWay, Converter={StaticResource BooleanInverter}}"
+            Command="{Binding Path=SearchCommand}"/>
+
+        <ListView
+            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+            IsItemClickEnabled="true"
+            ItemsSource="{Binding Path=SearchResult, Mode=OneWay}"
+            component:ItemClickCommand.Command="{Binding Path=TvShowItemClickedCommand}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock
+                        Margin="0,10"
+                        FontSize="24"
+                        TextWrapping="WrapWholeWords"
+                        Text="{Binding Path=Name}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ProgressRing
+            Grid.Row="0" Grid.RowSpan="2"
+            Grid.Column="0" Grid.ColumnSpan="2"
+            IsActive="{Binding Path=IsSearchInProgress, Mode=OneWay}"/>
+
+    </Grid>
+</UserControl>

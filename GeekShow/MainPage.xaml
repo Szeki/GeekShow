@@ -1,0 +1,74 @@
+﻿<Page
+    x:Class="GeekShow.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:GeekShow"
+    xmlns:views="using:GeekShow.View"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Border
+            Grid.Row="0"
+            Background="#FF555555">
+            <StackPanel
+                x:Name="MenuPanel"
+                Orientation="Horizontal"
+                VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid
+                    Margin="20,0,0,0"
+                    Tapped="FirstMenuItemStackPanel_Tapped">
+                    <Image
+                        x:Name="FirstMenuItemImage1"
+                        Margin="20,0"
+                        Width="48" Height="48"
+                        Source="Assets/tv_active.png"/>
+                    <Image
+                        x:Name="FirstMenuItemImage2"
+                        Margin="20,0"
+                        Width="48" Height="48"
+                        Source="Assets/tv_inactive.png"/>
+                </Grid>
+
+                <Grid
+                    Margin="20,0,0,0"
+                    Tapped="SecondMenuItemStackPanel_Tapped">
+                    <Image
+                        x:Name="SecondMenuItemImage1"
+                        Margin="20,0"
+                        Width="48" Height="48"
+                        Source="Assets/search_active.png"/>
+                    <Image
+                        x:Name="SecondMenuItemImage2"
+                        Margin="20,0"
+                        Width="48" Height="48"
+                        Source="Assets/search_inactive.png"/>
+                </Grid>
+
+            </StackPanel>
+        </Border>
+        
+        <Pivot
+            x:Name="MainContainer"
+            Grid.Row="1"
+            SelectedIndex="{Binding Path=SelectedMenuIndex, Mode=TwoWay}"
+            SelectionChanged="MainContainer_SelectionChanged"
+            Margin="0,-20,0,0">
+            <PivotItem>
+                <views:ListMyTvShowView
+                    DataContext="{Binding Path=ListMyTvShowViewModel}"/>
+            </PivotItem>
+            <PivotItem>
+                <views:SearchTvShowView
+                    DataContext="{Binding Path=SearchTvShowViewModel}"/>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>
