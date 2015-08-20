@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeekShow.Shared.Model
 {
@@ -65,7 +61,7 @@ namespace GeekShow.Shared.Model
 
                 _link = value;
 
-                RaisePropertyChanged("Link");
+                RaisePropertyChanged(nameof(Link));
             }
         }
 
@@ -81,7 +77,7 @@ namespace GeekShow.Shared.Model
 
                 _started = value;
 
-                RaisePropertyChanged("Started");
+                RaisePropertyChanged(nameof(Started));
             }
         }
 
@@ -97,7 +93,7 @@ namespace GeekShow.Shared.Model
 
                 _ended = value;
 
-                RaisePropertyChanged("Ended");
+                RaisePropertyChanged(nameof(Ended));
             }
         }
 
@@ -113,7 +109,7 @@ namespace GeekShow.Shared.Model
 
                 _endDate = value;
 
-                RaisePropertyChanged("EndDate");
+                RaisePropertyChanged(nameof(EndDate));
             }
         }
 
@@ -129,7 +125,7 @@ namespace GeekShow.Shared.Model
 
                 _status = value;
 
-                RaisePropertyChanged("Status");
+                RaisePropertyChanged(nameof(Status));
             }
         }
 
@@ -145,7 +141,7 @@ namespace GeekShow.Shared.Model
 
                 _classification = value;
 
-                RaisePropertyChanged("Classification");
+                RaisePropertyChanged(nameof(Classification));
             }
         }
 
@@ -161,7 +157,7 @@ namespace GeekShow.Shared.Model
 
                 _seasons = value;
 
-                RaisePropertyChanged("Seasons");
+                RaisePropertyChanged(nameof(Seasons));
             }
         }
 

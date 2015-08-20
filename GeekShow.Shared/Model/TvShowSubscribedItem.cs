@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeekShow.Shared.Model
 {
@@ -45,7 +41,7 @@ namespace GeekShow.Shared.Model
 
                 _network = value;
 
-                RaisePropertyChanged("Network");
+                RaisePropertyChanged(nameof(Network));
             }
         }
 
@@ -61,7 +57,7 @@ namespace GeekShow.Shared.Model
 
                 _airTime = value;
 
-                RaisePropertyChanged("AirTime");
+                RaisePropertyChanged(nameof(AirTime));
             }
         }
 
@@ -77,7 +73,7 @@ namespace GeekShow.Shared.Model
 
                 _runTime = value;
 
-                RaisePropertyChanged("RunTime");
+                RaisePropertyChanged(nameof(RunTime));
             }
         }
 
@@ -93,7 +89,7 @@ namespace GeekShow.Shared.Model
 
                 _lastEpisodeId = value;
 
-                RaisePropertyChanged("LastEpisodeId");
+                RaisePropertyChanged(nameof(LastEpisodeId));
             }
         }
 
@@ -109,7 +105,7 @@ namespace GeekShow.Shared.Model
 
                 _lastEpisodeName = value;
 
-                RaisePropertyChanged("LastEpisodeName");
+                RaisePropertyChanged(nameof(LastEpisodeName));
             }
         }
 
@@ -125,7 +121,7 @@ namespace GeekShow.Shared.Model
 
                 _lastEpisodeDate = value;
 
-                RaisePropertyChanged("LastEpisodeDate");
+                RaisePropertyChanged(nameof(LastEpisodeDate));
             }
         }
 
@@ -141,7 +137,7 @@ namespace GeekShow.Shared.Model
 
                 _nextEpisodeId = value;
 
-                RaisePropertyChanged("NextEpisodeId");
+                RaisePropertyChanged(nameof(NextEpisodeId));
             }
         }
 
@@ -157,7 +153,7 @@ namespace GeekShow.Shared.Model
 
                 _nextEpisodeName = value;
 
-                RaisePropertyChanged("NextEpisodeName");
+                RaisePropertyChanged(nameof(NextEpisodeName));
             }
         }
 
@@ -173,7 +169,7 @@ namespace GeekShow.Shared.Model
 
                 _nextEpisodeDate = value;
 
-                RaisePropertyChanged("NextEpisodeDate");
+                RaisePropertyChanged(nameof(NextEpisodeDate));
             }
         }
 

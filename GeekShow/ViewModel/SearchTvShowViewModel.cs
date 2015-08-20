@@ -1,14 +1,8 @@
 ﻿using GeekShow.Component;
 using GeekShow.Shared.Component;
 using GeekShow.Shared.Model;
-using GeekShow.Shared.Service;
 using GeekShow.View;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace GeekShow.ViewModel
@@ -65,17 +59,11 @@ namespace GeekShow.ViewModel
 
                 _searchText = value;
 
-                RaisePropertyChanged("SearchText");
+                RaisePropertyChanged(nameof(SearchText));
             }
         }
 
-        public bool CanSearch
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(SearchText) && !IsSearchInProgress;
-            }
-        }
+        public bool CanSearch => !string.IsNullOrEmpty(SearchText) && !IsSearchInProgress;
 
         public bool IsSearchInProgress
         {
@@ -89,7 +77,7 @@ namespace GeekShow.ViewModel
 
                 _isSearchInProgress = value;
 
-                RaisePropertyChanged("IsSearchInProgress");
+                RaisePropertyChanged(nameof(IsSearchInProgress));
             }
         }
 
@@ -105,7 +93,7 @@ namespace GeekShow.ViewModel
 
                 _searchResult = value;
 
-                RaisePropertyChanged("SearchResult");
+                RaisePropertyChanged(nameof(SearchResult));
             }
         }
 

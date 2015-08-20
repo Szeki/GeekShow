@@ -1,10 +1,4 @@
 ﻿using GeekShow.Shared.Model;
-using GeekShow.Shared.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeekShow.ViewModel
 {
@@ -42,7 +36,7 @@ namespace GeekShow.ViewModel
 
                 _selectedMenuIndex = value;
 
-                RaisePropertyChanged("SelectedMenuIndex");
+                RaisePropertyChanged(nameof(SelectedMenuIndex));
             }
         }
 

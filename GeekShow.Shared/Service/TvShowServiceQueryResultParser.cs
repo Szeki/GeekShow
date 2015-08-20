@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using Windows.Data.Xml.Dom;
 
@@ -14,8 +12,8 @@ namespace GeekShow.Shared.Service
     {
         #region Members
 
-        static CultureInfo UsCulture = new CultureInfo("en-US");
-        static string DateTimeFormat = "yyyy-MM-ddTHH:mm:sszzzzzzz";
+        readonly static CultureInfo UsCulture = new CultureInfo("en-US");
+        readonly static string DateTimeFormat = "yyyy-MM-ddTHH:mm:sszzzzzzz";
 
         #endregion
 
@@ -138,7 +136,7 @@ namespace GeekShow.Shared.Service
 
         private void ParseQuickInfoLine(TvShowQuickInfoItem tvShow, string line)
         {
-            string[] parts = line.Split(new string[] { "@" }, StringSplitOptions.RemoveEmptyEntries);
+            var parts = line.Split(new string[] { "@" }, StringSplitOptions.RemoveEmptyEntries);
 
             if (parts.Length > 1 && !string.IsNullOrEmpty(parts[1]))
             {
@@ -206,7 +204,7 @@ namespace GeekShow.Shared.Service
 
         private EpisodeInformation ParseEpisodeData(string episodeData)
         {
-            string[] parts = episodeData.Split(new char[] { '^' }, StringSplitOptions.RemoveEmptyEntries);
+            var parts = episodeData.Split(new char[] { '^' }, StringSplitOptions.RemoveEmptyEntries);
 
             return new EpisodeInformation()
             {

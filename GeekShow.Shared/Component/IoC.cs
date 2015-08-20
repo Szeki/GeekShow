@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
 
 namespace GeekShow.Shared.Component
@@ -11,8 +9,8 @@ namespace GeekShow.Shared.Component
     {
         #region Members
 
-        Dictionary<Type, object> _instanceRegistrations;
-        Dictionary<Type, Type> _typeRegistrations;
+        readonly Dictionary<Type, object> _instanceRegistrations;
+        readonly Dictionary<Type, Type> _typeRegistrations;
 
         #endregion
 

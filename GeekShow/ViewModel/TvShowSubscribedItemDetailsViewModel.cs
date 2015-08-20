@@ -1,11 +1,6 @@
 ﻿using GeekShow.Component;
 using GeekShow.Shared.Component;
 using GeekShow.Shared.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace GeekShow.ViewModel
@@ -75,7 +70,7 @@ namespace GeekShow.ViewModel
 
                 _isProcessInProgress = value;
 
-                RaisePropertyChanged("IsProcessInProgress");
+                RaisePropertyChanged(nameof(IsProcessInProgress));
             }
         }
 

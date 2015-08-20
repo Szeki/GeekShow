@@ -1,11 +1,6 @@
 ﻿using GeekShow.Component;
 using GeekShow.Shared.Model;
 using GeekShow.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace GeekShow.ViewModel

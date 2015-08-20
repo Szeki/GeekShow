@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GeekShow.Shared.Service
@@ -11,7 +9,7 @@ namespace GeekShow.Shared.Service
     {
         #region Members
 
-        TvShowServiceQueryResultParser _parser;
+        readonly TvShowServiceQueryResultParser _parser;
 
         #endregion
 
