@@ -10,6 +10,9 @@ namespace GeekShow.Shared.Service
         #region Members
 
         readonly TvShowServiceQueryResultParser _parser;
+        readonly static string SearchShowUrlFormat = @"http://services.tvrage.com/feeds/search.php?show={0}";
+        readonly static string ShowQuickInfoUrlFormat = @"http://services.tvrage.com/tools/quickinfo.php?show={0}";
+        readonly static string ShowInfoUrlFormat = @"http://services.tvrage.com/feeds/showinfo.php?sid={0}";
 
         #endregion
 
@@ -28,7 +31,7 @@ namespace GeekShow.Shared.Service
         {
             using(var client = new HttpClient())
             {
-                var task = client.GetStringAsync(new Uri(string.Format("http://services.tvrage.com/feeds/search.php?show={0}", searchValue)));
+                var task = client.GetStringAsync(new Uri(string.Format(SearchShowUrlFormat, searchValue)));
 
                 var returnValue = task.Result;
 
@@ -45,7 +48,7 @@ namespace GeekShow.Shared.Service
         {
             using (var client = new HttpClient())
             {
-                var task = client.GetStringAsync(new Uri(string.Format("http://services.tvrage.com/tools/quickinfo.php?show={0}", tvShowName)));
+                var task = client.GetStringAsync(new Uri(string.Format(ShowQuickInfoUrlFormat, tvShowName)));
 
                 var returnValue = task.Result;
 
@@ -62,7 +65,7 @@ namespace GeekShow.Shared.Service
         {
             using (var client = new HttpClient())
             {
-                var task = client.GetStringAsync(new Uri(string.Format("http://services.tvrage.com/feeds/showinfo.php?sid={0}", showId)));
+                var task = client.GetStringAsync(new Uri(string.Format(ShowInfoUrlFormat, showId)));
 
                 var returnValue = task.Result;
 

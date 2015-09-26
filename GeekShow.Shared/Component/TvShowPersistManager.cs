@@ -10,7 +10,7 @@ namespace GeekShow.Shared.Component
     {
         #region Members
 
-        static JsonSerializerSettings _serializerSettings;
+        readonly static JsonSerializerSettings _serializerSettings;
 
         #endregion
 

@@ -82,11 +82,15 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component\DateTimeProvider.cs" />
+    <Compile Include="Component\ICustomDateTimeProvider.cs" />
     <Compile Include="Component\INavigationService.cs" />
+    <Compile Include="Component\INotificationManager.cs" />
     <Compile Include="Component\IoC.cs" />
     <Compile Include="Component\IPopupMessageService.cs" />
     <Compile Include="Component\ITvShowPersistManager.cs" />
     <Compile Include="Component\NotificationManager.cs" />
+    <Compile Include="Component\TvShowNotifier.cs" />
     <Compile Include="Component\TvShowPersistManager.cs" />
     <Compile Include="Model\Enumerations.cs" />
     <Compile Include="Model\NotifiedTvShowItem.cs" />

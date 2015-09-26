@@ -3,7 +3,7 @@ using Windows.UI.Notifications;
 
 namespace GeekShow.Shared.Component
 {
-    public class NotificationManager
+    public class NotificationManager : INotificationManager
     {
         public void SendEpisodeReminderNotification(TvShowSubscribedItem tvShow)
         {
