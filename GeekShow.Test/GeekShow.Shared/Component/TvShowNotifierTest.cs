@@ -25,7 +25,7 @@ namespace GeekShow.Test.GeekShow.Shared.Component
             var persistManager = GetTvShowPersistManager();
             var notificationManager = GetNotificationManager();
 
-            var tvShow = new TvShowSubscribedItem(1, "Lost") { EndDate = new DateTime(2010, 5, 23) };
+            var tvShow = new TvShowSubscribedItem("1", "Lost") { EndDate = new DateTime(2010, 5, 23) };
 
             persistManager.ReturnsForAnyArgs(nameof(ITvShowPersistManager.LoadTvShowsAsync), Task.FromResult(new TvShowSubscribedItem[] { tvShow } as IEnumerable<TvShowSubscribedItem>));
             persistManager.ReturnsForAnyArgs(nameof(ITvShowPersistManager.LoadNotifiedTvShowsAsync), Task.FromResult(Enumerable.Empty<NotifiedTvShowItem>()));
@@ -49,7 +49,7 @@ namespace GeekShow.Test.GeekShow.Shared.Component
             var persistManager = GetTvShowPersistManager();
             var notificationManager = GetNotificationManager();
 
-            var tvShow = new TvShowSubscribedItem(1, "Lost") { NextEpisodeDate = null };
+            var tvShow = new TvShowSubscribedItem("1", "Lost") { NextEpisodeDate = null };
 
             persistManager.ReturnsForAnyArgs(nameof(ITvShowPersistManager.LoadTvShowsAsync), Task.FromResult(new TvShowSubscribedItem[] { tvShow } as IEnumerable<TvShowSubscribedItem>));
             persistManager.ReturnsForAnyArgs(nameof(ITvShowPersistManager.LoadNotifiedTvShowsAsync), Task.FromResult(Enumerable.Empty<NotifiedTvShowItem>()));
@@ -73,7 +73,7 @@ namespace GeekShow.Test.GeekShow.Shared.Component
             var persistManager = GetTvShowPersistManager();
             var notificationManager = GetNotificationManager();
 
-            var tvShow = new TvShowSubscribedItem(1, "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0) };
+            var tvShow = new TvShowSubscribedItem("1", "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0) };
             var now = new DateTime(2010, 5, 24, 8, 0, 0);
 
             SetDatesForDateTimeProvider(now, now);
@@ -100,7 +100,7 @@ namespace GeekShow.Test.GeekShow.Shared.Component
             var persistManager = GetTvShowPersistManager();
             var notificationManager = GetNotificationManager();
 
-            var tvShow = new TvShowSubscribedItem(1, "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0) };
+            var tvShow = new TvShowSubscribedItem("1", "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0) };
             var now = new DateTime(2010, 5, 23, 8, 0, 0);
 
             SetDatesForDateTimeProvider(now, now);
@@ -127,8 +127,8 @@ namespace GeekShow.Test.GeekShow.Shared.Component
             var persistManager = GetTvShowPersistManager();
             var notificationManager = GetNotificationManager();
 
-            var tvShow = new TvShowSubscribedItem(1, "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), NextEpisodeId = "6x17" };
-            var notifiedShow = new NotifiedTvShowItem(1) { EpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), EpisodeId = "6x17" };
+            var tvShow = new TvShowSubscribedItem("1", "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), NextEpisodeId = "6x17" };
+            var notifiedShow = new NotifiedTvShowItem("1") { EpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), EpisodeId = "6x17" };
             var now = new DateTime(2010, 5, 23, 16, 0, 0);
 
             SetDatesForDateTimeProvider(now, now);
@@ -155,7 +155,7 @@ namespace GeekShow.Test.GeekShow.Shared.Component
             var persistManager = GetTvShowPersistManager();
             var notificationManager = GetNotificationManager();
 
-            var tvShow = new TvShowSubscribedItem(1, "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), NextEpisodeId = "6x17" };
+            var tvShow = new TvShowSubscribedItem("1", "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), NextEpisodeId = "6x17" };
             var now = new DateTime(2010, 5, 23, 16, 0, 0);
 
             SetDatesForDateTimeProvider(now, now);
@@ -182,9 +182,9 @@ namespace GeekShow.Test.GeekShow.Shared.Component
             var persistManager = GetTvShowPersistManager();
             var notificationManager = GetNotificationManager();
 
-            var tvShow1 = new TvShowSubscribedItem(1, "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), NextEpisodeId = "6x17" };
-            var tvShow2 = new TvShowSubscribedItem(2, "House, M.D.") { NextEpisodeDate = new DateTime(2010, 5, 23, 20, 0, 0), NextEpisodeId = "6x22" }; //Fake
-            var notifiedShow = new NotifiedTvShowItem(2) { EpisodeDate = new DateTime(2010, 5, 23, 20, 0, 0), EpisodeId = "6x22" };
+            var tvShow1 = new TvShowSubscribedItem("1", "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), NextEpisodeId = "6x17" };
+            var tvShow2 = new TvShowSubscribedItem("2", "House, M.D.") { NextEpisodeDate = new DateTime(2010, 5, 23, 20, 0, 0), NextEpisodeId = "6x22" }; //Fake
+            var notifiedShow = new NotifiedTvShowItem("2") { EpisodeDate = new DateTime(2010, 5, 23, 20, 0, 0), EpisodeId = "6x22" };
             var now = new DateTime(2010, 5, 23, 16, 0, 0);
 
             SetDatesForDateTimeProvider(now, now);
@@ -211,8 +211,8 @@ namespace GeekShow.Test.GeekShow.Shared.Component
             var persistManager = GetTvShowPersistManager();
             var notificationManager = GetNotificationManager();
 
-            var tvShow1 = new TvShowSubscribedItem(1, "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), NextEpisodeId = "6x17" };
-            var tvShow2 = new TvShowSubscribedItem(2, "House, M.D.") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), NextEpisodeId = "6x22" }; //Fake
+            var tvShow1 = new TvShowSubscribedItem("1", "Lost") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), NextEpisodeId = "6x17" };
+            var tvShow2 = new TvShowSubscribedItem("2", "House, M.D.") { NextEpisodeDate = new DateTime(2010, 5, 23, 21, 0, 0), NextEpisodeId = "6x22" }; //Fake
             var now = new DateTime(2010, 5, 23, 16, 0, 0);
 
             SetDatesForDateTimeProvider(now, now);

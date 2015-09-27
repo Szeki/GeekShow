@@ -10,7 +10,7 @@ namespace GeekShow.Test.Mocks
 {
     public class TvShowServiceMock : MockBase, ITvShowService
     {
-        public TvShowItem GetTvShow(int showId)
+        public TvShowItem GetTvShow(string showId)
         {
             RecordCall(nameof(ITvShowService.GetTvShow));
 
@@ -19,7 +19,7 @@ namespace GeekShow.Test.Mocks
             return ReturnValueForAnyArgs<TvShowItem>(nameof(ITvShowService.GetTvShow));
         }
 
-        public Task<TvShowItem> GetTvShowAsync(int showId)
+        public Task<TvShowItem> GetTvShowAsync(string showId)
         {
             RecordCall(nameof(ITvShowService.GetTvShowAsync));
 

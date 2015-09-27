@@ -1,5 +1,6 @@
 ﻿using GeekShow.Shared.Component;
 using GeekShow.Shared.Model;
+using GeekShow.Shared.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,19 @@ namespace GeekShow.Tasks
 {
     public sealed class NotifyShowsTask : IBackgroundTask
     {
+        static NotifyShowsTask()
+        {
+            IoC.Container.RegisterType<ITvShowEpisodeService, TvShowEpisodeImdbService>();
+            IoC.Container.RegisterType<ITvShowPersistManager, TvShowPersistManager>();
+            IoC.Container.RegisterType<INotificationManager, NotificationManager>();
+        }
+
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             var deferral = taskInstance.GetDeferral();
 
-            var persistManager = new TvShowPersistManager();
-            var notificationManager = new NotificationManager();
+            var persistManager = IoC.Container.ResolveType<ITvShowPersistManager>();
+            var notificationManager = IoC.Container.ResolveType<INotificationManager>();
 
             new TvShowNotifier(persistManager, notificationManager).CalculateAndSendNotifications();
 

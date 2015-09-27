@@ -113,6 +113,7 @@ namespace GeekShow.ViewModel
 
         private void EnrichTvShow(TvShowSubscribedItem tvShow, TvShowQuickInfoItem tvShowQuickInfo)
         {
+            tvShow.Genres = tvShowQuickInfo.Genres;
             tvShow.Network = tvShowQuickInfo.Network;
             tvShow.AirTime = tvShowQuickInfo.AirTime;
             tvShow.RunTime = tvShowQuickInfo.Runtime;

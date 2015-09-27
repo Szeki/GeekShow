@@ -25,7 +25,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
         {
             var navigationService = GetNavigationService();
 
-            var tvShow = new TvShowSubscribedItem(1, "Lost");
+            var tvShow = new TvShowSubscribedItem("1", "Lost");
             var viewModel = new TvShowSubscribedItemDetailsViewModel(tvShow);
 
             viewModel.BackCommand.Execute(null);
@@ -39,7 +39,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
             var navigationService = GetNavigationService();
             var persistManager = GetTvShowPersistManager();
 
-            var tvShow = new TvShowSubscribedItem(1, "Lost");
+            var tvShow = new TvShowSubscribedItem("1", "Lost");
             var viewModel = new TvShowSubscribedItemDetailsViewModel(tvShow);
             viewModel.TvShows.Add(tvShow);
 
@@ -59,7 +59,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
 
             tvShowService.RegisterMethodAction(nameof(ITvShowService.GetTvShowAsync), () => { throw new Exception(); });
 
-            var tvShow = new TvShowSubscribedItem(1, "Lost");
+            var tvShow = new TvShowSubscribedItem("1", "Lost");
             var viewModel = new TvShowSubscribedItemDetailsViewModel(tvShow);
 
             viewModel.RefreshCommand.Execute(null);
@@ -79,10 +79,10 @@ namespace GeekShow.Test.GeekShow.ViewModel
 
             tvShowService.RegisterMethodAction(nameof(ITvShowService.GetTvShowQuickInfoAsync), () => { throw new Exception(); });
 
-            var tvShow = new TvShowSubscribedItem(1, "Lost");
+            var tvShow = new TvShowSubscribedItem("1", "Lost");
             var viewModel = new TvShowSubscribedItemDetailsViewModel(tvShow);
 
-            var tvShowBaseInfo = new TvShowItem(1, "Lost")
+            var tvShowBaseInfo = new TvShowItem("1", "Lost")
             {
                 Classification = "Drama",
                 Country = "US",
@@ -110,10 +110,10 @@ namespace GeekShow.Test.GeekShow.ViewModel
             var tvShowService = GetTvShowService();
             var persistManager = GetTvShowPersistManager();
             
-            var tvShow = new TvShowSubscribedItem(1, "Lost");
+            var tvShow = new TvShowSubscribedItem("1", "Lost");
             var viewModel = new TvShowSubscribedItemDetailsViewModel(tvShow);
 
-            var tvShowBaseInfo = new TvShowItem(1, "Lost")
+            var tvShowBaseInfo = new TvShowItem("1", "Lost")
             {
                 Classification = "Drama",
                 Country = "US",
@@ -140,8 +140,8 @@ namespace GeekShow.Test.GeekShow.ViewModel
                 NextEpisodeId = "6x17",
                 NextEpisodeName = "The End",
                 Premiered = 0,
-                Runtime = 60,
-                ShowId = 1,
+                Runtime = "60",
+                ShowId = "1",
                 ShowName = "Lost",
                 ShowUrl = "http",
                 Started = new DateTime(2004, 9, 22),

@@ -1,8 +1,11 @@
 ﻿using GeekShow.Component;
 using GeekShow.Shared.Component;
 using GeekShow.Shared.Model;
+using GeekShow.Shared.Service;
 using GeekShow.View;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace GeekShow.ViewModel
@@ -15,7 +18,7 @@ namespace GeekShow.ViewModel
         RelayCommand _tvShowItemClicked;
 
         string _searchText;
-        bool _isSearchInProgress;
+        bool _isProgressBarVisible;
 
         List<TvShowItem> _searchResult;
 
@@ -63,21 +66,21 @@ namespace GeekShow.ViewModel
             }
         }
 
-        public bool CanSearch => !string.IsNullOrEmpty(SearchText) && !IsSearchInProgress;
+        public bool CanSearch => !string.IsNullOrEmpty(SearchText) && !IsProgressBarVisible;
 
-        public bool IsSearchInProgress
+        public bool IsProgressBarVisible
         {
             get
             {
-                return _isSearchInProgress;
+                return _isProgressBarVisible;
             }
             private set
             {
-                if (_isSearchInProgress == value) return;
+                if (_isProgressBarVisible == value) return;
 
-                _isSearchInProgress = value;
+                _isProgressBarVisible = value;
 
-                RaisePropertyChanged(nameof(IsSearchInProgress));
+                RaisePropertyChanged(nameof(IsProgressBarVisible));
             }
         }
 
@@ -108,7 +111,7 @@ namespace GeekShow.ViewModel
                 return;
             }
 
-            IsSearchInProgress = true;
+            IsProgressBarVisible = true;
 
             SearchResult = null;
 
@@ -127,7 +130,7 @@ namespace GeekShow.ViewModel
                 SearchResult = new List<TvShowItem>();
             }
 
-            IsSearchInProgress = false;
+            IsProgressBarVisible = false;
         }
 
         public override void ClearViewModel()
@@ -140,7 +143,7 @@ namespace GeekShow.ViewModel
 
         #region Private Methods
 
-        private void TvShowClicked(object param)
+        private async void TvShowClicked(object param)
         {
             var tvShow = param as TvShowItem;
 
@@ -149,7 +152,53 @@ namespace GeekShow.ViewModel
                 return;
             }
 
+            IsProgressBarVisible = true;
+
+            await EnrichSeasonInformation(tvShow);
+
+            await EnrichCountryAndPlotInformation(tvShow);
+
+            IsProgressBarVisible = false;
+
             NavigationService.Navigate(typeof(TvShowSearchItemDetailsPage), new TvShowSearchItemDetailsViewModel(tvShow));
+        }
+        
+        private async Task EnrichSeasonInformation(TvShowItem tvShow)
+        {
+            if(tvShow == null || tvShow.Seasons != default(int))
+            {
+                return;
+            }
+
+            var helperService = IoC.Container.ResolveType<ITvShowEpisodeService>();
+
+            try
+            {
+                var episodes = await helperService.GetEpisodesAsync(tvShow.Name, tvShow.Started);
+
+                if (episodes.Any())
+                {
+                    tvShow.Seasons = episodes.Max(ep => ep.Season);
+                }
+            }
+            catch { }
+        }
+
+        private async Task EnrichCountryAndPlotInformation(TvShowItem tvShow)
+        {
+            if(tvShow == null || !string.IsNullOrEmpty(tvShow.Country) || !string.IsNullOrEmpty(tvShow.Plot))
+            {
+                return;
+            }
+
+            try
+            {
+                var tvShowFullInfo = await TvShowService.GetTvShowAsync(tvShow.ShowId);
+
+                tvShow.Country = tvShowFullInfo.Country;
+                tvShow.Plot = tvShowFullInfo.Plot;
+            }
+            catch { }
         }
 
         #endregion

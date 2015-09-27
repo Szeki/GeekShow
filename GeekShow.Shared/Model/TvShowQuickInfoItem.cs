@@ -6,7 +6,7 @@ namespace GeekShow.Shared.Model
     {
         #region Properties
 
-        public int ShowId
+        public string ShowId
         {
             get;
             set;
@@ -115,7 +115,13 @@ namespace GeekShow.Shared.Model
             set;
         }
 
-        public int Runtime
+        public string Runtime
+        {
+            get;
+            set;
+        }
+
+        public string Plot
         {
             get;
             set;

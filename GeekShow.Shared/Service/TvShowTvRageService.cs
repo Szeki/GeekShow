@@ -9,7 +9,7 @@ namespace GeekShow.Shared.Service
     {
         #region Members
 
-        readonly TvShowServiceQueryResultParser _parser;
+        readonly TvShowTvRageServiceQueryResultParser _parser;
         readonly static string SearchShowUrlFormat = @"http://services.tvrage.com/feeds/search.php?show={0}";
         readonly static string ShowQuickInfoUrlFormat = @"http://services.tvrage.com/tools/quickinfo.php?show={0}";
         readonly static string ShowInfoUrlFormat = @"http://services.tvrage.com/feeds/showinfo.php?sid={0}";
@@ -20,7 +20,7 @@ namespace GeekShow.Shared.Service
 
         public TvShowTvRageService()
         {
-            _parser = new TvShowServiceQueryResultParser();
+            _parser = new TvShowTvRageServiceQueryResultParser();
         }
 
         #endregion
@@ -61,7 +61,7 @@ namespace GeekShow.Shared.Service
             return Task.Factory.StartNew(() => GetTvShowQuickInfo(tvShowName));
         }
 
-        public Model.TvShowItem GetTvShow(int showId)
+        public Model.TvShowItem GetTvShow(string showId)
         {
             using (var client = new HttpClient())
             {
@@ -73,12 +73,11 @@ namespace GeekShow.Shared.Service
             }
         }
 
-        public Task<Model.TvShowItem> GetTvShowAsync(int showId)
+        public Task<Model.TvShowItem> GetTvShowAsync(string showId)
         {
             return Task.Factory.StartNew(() => GetTvShow(showId));
         }
         
         #endregion
-
     }
 }

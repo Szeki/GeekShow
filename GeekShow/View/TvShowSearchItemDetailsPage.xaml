@@ -22,92 +22,110 @@
             TextWrapping="WrapWholeWords"
             Text="{Binding Path=TvShow.Name}"/>
 
-        <Grid
+        <Pivot
             Grid.Row="1"
-            Margin="0,20,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-            </Grid.RowDefinitions>
+            Margin="0,-10,0,0">
+            <PivotItem
+                Header="Details">
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
 
-            <TextBlock
-                Grid.Row="0" Grid.Column="0"
-                VerticalAlignment="Center"
-                FontSize="20"
-                Text="Started:"/>
+                        <TextBlock
+                            Grid.Row="0" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Started:"/>
 
-            <TextBlock
-                Grid.Row="0" Grid.Column="1"
-                Margin="10,0,0,0"
-                VerticalAlignment="Center"
-                FontSize="16"
-                Text="{Binding Path=TvShow.Started}"/>
+                        <TextBlock
+                            Grid.Row="0" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Started}"/>
 
-            <TextBlock
-                Grid.Row="1" Grid.Column="0"
-                VerticalAlignment="Center"
-                FontSize="20"
-                Text="Ended:"/>
+                        <TextBlock
+                            Grid.Row="1" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Ended:"/>
 
-            <TextBlock
-                Grid.Row="1" Grid.Column="1"
-                Margin="10,0,0,0"
-                VerticalAlignment="Center"
-                FontSize="16"
-                Text="{Binding Path=TvShow.Ended}"/>
+                        <TextBlock
+                            Grid.Row="1" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Ended}"/>
 
-            <TextBlock
-                Grid.Row="2" Grid.Column="0"
-                VerticalAlignment="Center"
-                FontSize="20"
-                Text="Status:"/>
+                        <TextBlock
+                            Grid.Row="2" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Status:"/>
 
-            <TextBlock
-                Grid.Row="2" Grid.Column="1"
-                Margin="10,0,0,0"
-                VerticalAlignment="Center"
-                FontSize="16"
-                Text="{Binding Path=TvShow.Status}"/>
+                        <TextBlock
+                            Grid.Row="2" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Status}"/>
 
-            <TextBlock
-                Grid.Row="3" Grid.Column="0"
-                VerticalAlignment="Center"
-                FontSize="20"
-                Text="Country:"/>
+                        <TextBlock
+                            Grid.Row="3" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Country:"/>
 
-            <TextBlock
-                Grid.Row="3" Grid.Column="1"
-                Margin="10,0,0,0"
-                VerticalAlignment="Center"
-                FontSize="16"
-                Text="{Binding Path=TvShow.Country}"/>
+                        <TextBlock
+                            Grid.Row="3" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Country}"/>
 
-            <TextBlock
-                Grid.Row="4" Grid.Column="0"
-                VerticalAlignment="Center"
-                FontSize="20"
-                Text="Seasons:"/>
+                        <TextBlock
+                            Grid.Row="4" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Seasons:"/>
 
-            <TextBlock
-                Grid.Row="4" Grid.Column="1"
-                Margin="10,0,0,0"
-                VerticalAlignment="Center"
-                FontSize="16"
-                Text="{Binding Path=TvShow.Seasons}"/>
+                        <TextBlock
+                            Grid.Row="4" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Seasons}"/>
             
-            <ProgressRing
-                Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="2"
-                IsActive="{Binding Path=IsProcessingData, Mode=OneWay}"/>
-            
-        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem
+                Header="Plot">
+                <ScrollViewer
+                    Margin="0,0,5,0">
+                    <TextBlock
+                        TextWrapping="WrapWholeWords"
+                        FontSize="20"
+                        Text="{Binding Path=TvShow.Plot, Mode=OneWay}"/>
+
+                </ScrollViewer>
+            </PivotItem>
+        </Pivot>
+
+        <ProgressRing
+            Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+            IsActive="{Binding Path=IsProcessingData, Mode=OneWay}"/>
     </Grid>
     
     <Page.BottomAppBar>

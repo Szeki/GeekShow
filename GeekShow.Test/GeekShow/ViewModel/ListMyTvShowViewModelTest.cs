@@ -35,7 +35,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
         {
             var navigationService = GetNavigationService();
 
-            var tvShow = new TvShowSubscribedItem(1, "Test TvShow");
+            var tvShow = new TvShowSubscribedItem("1", "Test TvShow");
             var viewModel = new ListMyTvShowViewModel();
 
             viewModel.TvShowItemClickedCommand.Execute(tvShow);

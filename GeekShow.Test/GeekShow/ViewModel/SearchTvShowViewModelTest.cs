@@ -45,7 +45,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
         {
             var serviceSearchResult = new List<TvShowItem>
             {
-                new TvShowItem(1, "Lost")
+                new TvShowItem("1", "Lost")
             };
 
             var tvShowService = GetTvShowService();
@@ -61,7 +61,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
             Assert.AreEqual(1, tvShowService.GetNumberOfRecordedCalls(nameof(ITvShowService.SearchShowAsync)));
             Assert.AreEqual(1, viewModel.SearchResult.Count);
             Assert.AreEqual(serviceSearchResult[0], viewModel.SearchResult[0]);
-            Assert.IsFalse(viewModel.IsSearchInProgress);
+            Assert.IsFalse(viewModel.IsProgressBarVisible);
         }
 
         [TestMethod]
@@ -81,7 +81,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
             Assert.AreEqual(1, tvShowService.GetNumberOfRecordedCalls(nameof(ITvShowService.SearchShowAsync)));
             Assert.AreEqual(1, popupService.GetNumberOfRecordedCalls(nameof(IPopupMessageService.DisplayMessage)));
             Assert.AreEqual(0, viewModel.SearchResult.Count);
-            Assert.IsFalse(viewModel.IsSearchInProgress);
+            Assert.IsFalse(viewModel.IsProgressBarVisible);
         }
 
         [TestMethod]
@@ -89,7 +89,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
         {
             var serviceSearchResult = new List<TvShowItem>
             {
-                new TvShowItem(1, "Lost")
+                new TvShowItem("1", "Lost")
             };
 
             var tvShowService = GetTvShowService();
@@ -105,7 +105,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
             Assert.AreEqual(1, tvShowService.GetNumberOfRecordedCalls(nameof(ITvShowService.SearchShowAsync)));
             Assert.AreEqual(1, viewModel.SearchResult.Count);
             Assert.AreEqual(serviceSearchResult[0], viewModel.SearchResult[0]);
-            Assert.IsFalse(viewModel.IsSearchInProgress);
+            Assert.IsFalse(viewModel.IsProgressBarVisible);
         }
 
         [TestMethod]
@@ -123,7 +123,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
         [TestMethod]
         public void TvShowItemClickedCommand_WithParameter_NavigatesToTvShowSearchItemDetailsPage()
         {
-            var tvShow = new TvShowItem(1, "Lost");
+            var tvShow = new TvShowItem("1", "Lost");
             var navigationService = GetNavigationService();
 
             var viewModel = new SearchTvShowViewModel();

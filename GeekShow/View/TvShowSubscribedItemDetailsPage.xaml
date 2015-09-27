@@ -11,7 +11,7 @@
 
     <Page.Resources>
         <converter:DateTimeConverter x:Name="LastEpidoseDateConverter" DateTimeFormat="MM/dd/yyyy"/>
-        <converter:DateTimeConverter x:Name="NextEpidoseDateConverter" DateTimeFormat="MM/dd/yyyy h:mm tt"/>
+        <converter:DateTimeConverter x:Name="NextEpidoseDateConverter" DateTimeFormat="MM/dd/yyyy"/>
     </Page.Resources>
     
     <Grid
@@ -33,207 +33,220 @@
             Margin="0,-20,0,0">
             <PivotItem
                 Header="Episodes">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                    </Grid.RowDefinitions>
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
                     
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="140"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock
-                        Grid.Row="0" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        TextWrapping="Wrap"
-                        Text="Latest episode:"/>
+                        <TextBlock
+                            Grid.Row="0" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            TextWrapping="Wrap"
+                            Text="Latest episode:"/>
 
-                    <TextBlock
-                        Grid.Row="0" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        TextWrapping="Wrap"
-                        Text="{Binding Path=TvShow.LastEpisodeId}"/>
+                        <TextBlock
+                            Grid.Row="0" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            TextWrapping="Wrap"
+                            Text="{Binding Path=TvShow.LastEpisodeId}"/>
 
-                    <TextBlock
-                        Grid.Row="1" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        TextWrapping="Wrap"
-                        Text="Latest episode name:"/>
+                        <TextBlock
+                            Grid.Row="1" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            TextWrapping="Wrap"
+                            Text="Latest episode name:"/>
 
-                    <TextBlock
-                        Grid.Row="1" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        TextWrapping="Wrap"
-                        Text="{Binding Path=TvShow.LastEpisodeName}"/>
+                        <TextBlock
+                            Grid.Row="1" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            TextWrapping="Wrap"
+                            Text="{Binding Path=TvShow.LastEpisodeName}"/>
 
-                    <TextBlock
-                        Grid.Row="2" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        TextWrapping="Wrap"
-                        Text="Latest episode date:"/>
+                        <TextBlock
+                            Grid.Row="2" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            TextWrapping="Wrap"
+                            Text="Latest episode date:"/>
 
-                    <TextBlock
-                        Grid.Row="2" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        TextWrapping="Wrap"
-                        Text="{Binding Path=TvShow.LastEpisodeDate, Converter={StaticResource LastEpidoseDateConverter}}"/>
+                        <TextBlock
+                            Grid.Row="2" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            TextWrapping="Wrap"
+                            Text="{Binding Path=TvShow.LastEpisodeDate, Converter={StaticResource LastEpidoseDateConverter}}"/>
 
-                    <TextBlock
-                        Grid.Row="3" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        TextWrapping="Wrap"
-                        Text="Next episode:"/>
+                        <TextBlock
+                            Grid.Row="3" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            TextWrapping="Wrap"
+                            Text="Next episode:"/>
 
-                    <TextBlock
-                        Grid.Row="3" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        TextWrapping="Wrap"
-                        Text="{Binding Path=TvShow.NextEpisodeId}"/>
+                        <TextBlock
+                            Grid.Row="3" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            TextWrapping="Wrap"
+                            Text="{Binding Path=TvShow.NextEpisodeId}"/>
 
-                    <TextBlock
-                        Grid.Row="4" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        TextWrapping="Wrap"
-                        Text="Next episode name:"/>
+                        <TextBlock
+                            Grid.Row="4" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            TextWrapping="Wrap"
+                            Text="Next episode name:"/>
 
-                    <TextBlock
-                        Grid.Row="4" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        TextWrapping="Wrap"
-                        Text="{Binding Path=TvShow.NextEpisodeName}"/>
+                        <TextBlock
+                            Grid.Row="4" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            TextWrapping="Wrap"
+                            Text="{Binding Path=TvShow.NextEpisodeName}"/>
 
-                    <TextBlock
-                        Grid.Row="5" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        TextWrapping="Wrap"
-                        Text="Next episode date:"/>
+                        <TextBlock
+                            Grid.Row="5" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            TextWrapping="Wrap"
+                            Text="Next episode date:"/>
 
-                    <TextBlock
-                        Grid.Row="5" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        TextWrapping="Wrap"
-                        Text="{Binding Path=TvShow.NextEpisodeDate, Converter={StaticResource NextEpidoseDateConverter}}"/>
-                </Grid>
+                        <TextBlock
+                            Grid.Row="5" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            TextWrapping="Wrap"
+                            Text="{Binding Path=TvShow.NextEpisodeDate, Converter={StaticResource NextEpidoseDateConverter}}"/>
+                    </Grid>
+                </ScrollViewer>
             </PivotItem>
             <PivotItem
                 Header="Details">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                        <RowDefinition Height="60"/>
-                    </Grid.RowDefinitions>
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                         
+                        <TextBlock
+                            Grid.Row="0" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Started:"/>
+
+                        <TextBlock
+                            Grid.Row="0" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Started}"/>
+
+                        <TextBlock
+                            Grid.Row="1" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Ended:"/>
+
+                        <TextBlock
+                            Grid.Row="1" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Ended}"/>
+
+                        <TextBlock
+                            Grid.Row="2" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Status:"/>
+
+                        <TextBlock
+                            Grid.Row="2" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Status}"/>
+
+                        <TextBlock
+                            Grid.Row="3" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Genres:"/>
+
+                        <TextBlock
+                            Grid.Row="3" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Genres}"/>
+
+                        <TextBlock
+                            Grid.Row="4" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Country:"/>
+
+                        <TextBlock
+                            Grid.Row="4" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Country}"/>
+
+                        <TextBlock
+                            Grid.Row="5" Grid.Column="0"
+                            VerticalAlignment="Center"
+                            FontSize="20"
+                            Text="Seasons:"/>
+
+                        <TextBlock
+                            Grid.Row="5" Grid.Column="1"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontSize="16"
+                            Text="{Binding Path=TvShow.Seasons}"/>
+                    </Grid>
+                </ScrollViewer>
+            </PivotItem>
+            <PivotItem
+                Header="Plot">
+                <ScrollViewer>
                     <TextBlock
-                        Grid.Row="0" Grid.Column="0"
-                        VerticalAlignment="Center"
                         FontSize="20"
-                        Text="Started:"/>
-
-                    <TextBlock
-                        Grid.Row="0" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Text="{Binding Path=TvShow.Started}"/>
-
-                    <TextBlock
-                        Grid.Row="1" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Text="Ended:"/>
-
-                    <TextBlock
-                        Grid.Row="1" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Text="{Binding Path=TvShow.Ended}"/>
-
-                    <TextBlock
-                        Grid.Row="2" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Text="Status:"/>
-
-                    <TextBlock
-                        Grid.Row="2" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Text="{Binding Path=TvShow.Status}"/>
-
-                    <TextBlock
-                        Grid.Row="3" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Text="Network:"/>
-
-                    <TextBlock
-                        Grid.Row="3" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Text="{Binding Path=TvShow.Network}"/>
-
-                    <TextBlock
-                        Grid.Row="4" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Text="Country:"/>
-
-                    <TextBlock
-                        Grid.Row="4" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Text="{Binding Path=TvShow.Country}"/>
-
-                    <TextBlock
-                        Grid.Row="5" Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="20"
-                        Text="Seasons:"/>
-
-                    <TextBlock
-                        Grid.Row="5" Grid.Column="1"
-                        Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        FontSize="16"
-                        Text="{Binding Path=TvShow.Seasons}"/>
-                </Grid>
+                        TextWrapping="WrapWholeWords"
+                        Text="{Binding Path=TvShow.Plot, Mode=OneWay}"/>
+                </ScrollViewer>
             </PivotItem>
         </Pivot>
         

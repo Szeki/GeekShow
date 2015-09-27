@@ -30,7 +30,7 @@
             Grid.Row="0" Grid.Column="0"
             PlaceholderText="Search a Tv Show"
             IsSpellCheckEnabled="false"
-            IsEnabled="{Binding Path=IsSearchInProgress, Mode=OneWay, Converter={StaticResource BooleanInverter}}"
+            IsEnabled="{Binding Path=IsProgressBarVisible, Mode=OneWay, Converter={StaticResource BooleanInverter}}"
             Text="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             KeyDown="TextBox_KeyDown"/>
 
@@ -39,7 +39,7 @@
             Grid.Row="0" Grid.Column="1"
             Margin="-15,-2,0,0"
             Icon="Find"
-            IsEnabled="{Binding Path=IsSearchInProgress, Mode=OneWay, Converter={StaticResource BooleanInverter}}"
+            IsEnabled="{Binding Path=IsProgressBarVisible, Mode=OneWay, Converter={StaticResource BooleanInverter}}"
             Command="{Binding Path=SearchCommand}"/>
 
         <ListView
@@ -61,7 +61,7 @@
         <ProgressRing
             Grid.Row="0" Grid.RowSpan="2"
             Grid.Column="0" Grid.ColumnSpan="2"
-            IsActive="{Binding Path=IsSearchInProgress, Mode=OneWay}"/>
+            IsActive="{Binding Path=IsProgressBarVisible, Mode=OneWay}"/>
 
     </Grid>
 </UserControl>

@@ -25,7 +25,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
         {
             var viewModelMock = new ViewModelBaseMock();
             
-            viewModelMock.TvShows.Add(new TvShowSubscribedItem(1, "Lost"));
+            viewModelMock.TvShows.Add(new TvShowSubscribedItem("1", "Lost"));
 
             var actualTvShows = ViewModelBase.GetTvShows().ToArray();
 
@@ -37,8 +37,8 @@ namespace GeekShow.Test.GeekShow.ViewModel
         {
             var persistedTvShows = new List<TvShowSubscribedItem>
             {
-                new TvShowSubscribedItem(1, "Lost"),
-                new TvShowSubscribedItem(2, "Wire")
+                new TvShowSubscribedItem("1", "Lost"),
+                new TvShowSubscribedItem("2", "Wire")
             };
 
             var persistManager = GetTvShowPersistManager();
@@ -58,7 +58,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
             var persistManager = GetTvShowPersistManager();
             var viewModelMock = new ViewModelBaseMock();
 
-            var originalShow = new TvShowSubscribedItem(1, "Lost")
+            var originalShow = new TvShowSubscribedItem("1", "Lost")
             {
                 LastEpisodeDate = new DateTime(2010, 5, 18),
                 LastEpisodeId = "5x17",
@@ -72,7 +72,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
 
             viewModelMock.TvShows.Add(originalShow);
 
-            var updateShow = new TvShowSubscribedItem(1, "Lost")
+            var updateShow = new TvShowSubscribedItem("1", "Lost")
             {
                 LastEpisodeDate = new DateTime(2010, 5, 23),
                 LastEpisodeId = "5x18",
@@ -110,7 +110,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
         {
             var persistManager = GetTvShowPersistManager();
             var viewModelMock = new ViewModelBaseMock();
-            var tvShowToPersist = new TvShowSubscribedItem(1, "Lost");
+            var tvShowToPersist = new TvShowSubscribedItem("1", "Lost");
 
             viewModelMock.AddTvShowAndPersist(tvShowToPersist);
 
@@ -124,7 +124,7 @@ namespace GeekShow.Test.GeekShow.ViewModel
         {
             var persistManager = GetTvShowPersistManager();
             var viewModelMock = new ViewModelBaseMock();
-            var tvShowToRemove = new TvShowSubscribedItem(1, "Lost");
+            var tvShowToRemove = new TvShowSubscribedItem("1", "Lost");
 
             viewModelMock.TvShows.Add(tvShowToRemove);
 

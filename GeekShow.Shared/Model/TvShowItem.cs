@@ -14,6 +14,7 @@ namespace GeekShow.Shared.Model
         string _status;
         string _classification;
         int _seasons;
+        string _country;
 
         #endregion
 
@@ -21,7 +22,7 @@ namespace GeekShow.Shared.Model
 
         public TvShowItem() { }
 
-        public TvShowItem(int showId, string name)
+        public TvShowItem(string showId, string name)
         {
             ShowId = showId;
             Name = name;
@@ -31,7 +32,7 @@ namespace GeekShow.Shared.Model
 
         #region Properties
 
-        public int ShowId
+        public string ShowId
         {
             get;
             set;
@@ -44,6 +45,22 @@ namespace GeekShow.Shared.Model
         }
 
         public string Country
+        {
+            get
+            {
+                return _country;
+            }
+            set
+            {
+                if (_country == value) return;
+
+                _country = value;
+
+                RaisePropertyChanged(nameof(Country));
+            }
+        }
+
+        public string Plot
         {
             get;
             set;

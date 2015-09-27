@@ -11,7 +11,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     <UserControl.Resources>
-        <converters:DateTimeConverter x:Key="DateTimeConverter" DateTimeFormat="MM/dd/yyyy h:mm tt"/>
+        <converters:DateTimeConverter x:Key="DateTimeConverter" DateTimeFormat="MM/dd/yyyy"/>
         <converters:NextEpisodeDatesVisibilityConverter x:Key="NextEpisodeDatesVisibilityConverter" />
     </UserControl.Resources>
     <Grid>

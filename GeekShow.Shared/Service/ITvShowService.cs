@@ -12,7 +12,7 @@ namespace GeekShow.Shared.Service
         TvShowQuickInfoItem GetTvShowQuickInfo(string tvShowName);
         Task<TvShowQuickInfoItem> GetTvShowQuickInfoAsync(string tvShowName);
 
-        TvShowItem GetTvShow(int showId);
-        Task<TvShowItem> GetTvShowAsync(int showId);
+        TvShowItem GetTvShow(string showId);
+        Task<TvShowItem> GetTvShowAsync(string showId);
     }
 }

@@ -39,7 +39,7 @@ namespace GeekShow.Shared.Component
             foreach (var tvShow in (await tvShows).Where(item => item.EndDate == null && item.NextEpisodeDate != null))
             {
                 var utcNow = DateTimeProvider.UtcNow;
-                var notificationDeadLine = tvShow.NextEpisodeDate.Value.UtcDateTime.Subtract(NotificationTimeSpan);
+                var notificationDeadLine = GetNextEpisodeDate(tvShow.NextEpisodeDate).Value.UtcDateTime.Subtract(NotificationTimeSpan);
 
                 if (tvShow.NextEpisodeDate.Value.UtcDateTime < utcNow || notificationDeadLine > utcNow)
                 {
@@ -66,6 +66,26 @@ namespace GeekShow.Shared.Component
             }
 
             await _persistManager.SaveNotifiedTvShowsAsync(newlyNotifiedTvShows);
+        }
+
+        #endregion
+
+        #region Private Methods
+        
+        private DateTimeOffset? GetNextEpisodeDate(DateTimeOffset? currentShowDateTime)
+        {
+            if (currentShowDateTime == null)
+            {
+                return null;
+            }
+            else if (currentShowDateTime.Value.Hour == 0)
+            {
+                return currentShowDateTime.Value.AddHours(20);
+            }
+            else
+            {
+                return currentShowDateTime;
+            }
         }
 
         #endregion

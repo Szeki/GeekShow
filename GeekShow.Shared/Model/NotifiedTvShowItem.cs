@@ -6,7 +6,7 @@ namespace GeekShow.Shared.Model
     {
         #region Constructor
 
-        public NotifiedTvShowItem(int showId)
+        public NotifiedTvShowItem(string showId)
         {
             ShowId = showId;
         }
@@ -15,7 +15,7 @@ namespace GeekShow.Shared.Model
 
         #region Properties
 
-        public int ShowId
+        public string ShowId
         {
             get;
             private set;

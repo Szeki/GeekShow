@@ -8,7 +8,7 @@ namespace GeekShow.Shared.Model
 
         string _network;
         string _airTime;
-        int _runTime;
+        string _runTime;
         string _lastEpisodeId;
         string _lastEpisodeName;
         DateTime? _lastEpisodeDate;
@@ -20,7 +20,7 @@ namespace GeekShow.Shared.Model
 
         #region Constructor
 
-        public TvShowSubscribedItem(int showId, string name)
+        public TvShowSubscribedItem(string showId, string name)
             : base(showId, name)
         {
         }
@@ -61,7 +61,7 @@ namespace GeekShow.Shared.Model
             }
         }
 
-        public int RunTime
+        public string RunTime
         {
             get
             {
@@ -173,6 +173,12 @@ namespace GeekShow.Shared.Model
             }
         }
 
+        public string Genres
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region Static Methods
@@ -192,7 +198,8 @@ namespace GeekShow.Shared.Model
                 Ended = item.Ended,
                 Status = item.Status,
                 Classification = item.Classification,
-                Seasons = item.Seasons
+                Seasons = item.Seasons,
+                Plot = item.Plot
             };
         }
 

@@ -22,7 +22,8 @@ namespace GeekShow.Shared.Component
             {
                 DefaultValueHandling = DefaultValueHandling.Ignore,
                 Formatting = Formatting.None,
-                NullValueHandling = NullValueHandling.Ignore
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
             };
         }
 

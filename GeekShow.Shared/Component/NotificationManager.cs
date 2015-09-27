@@ -12,7 +12,7 @@ namespace GeekShow.Shared.Component
 
             var textElements = toastXml.GetElementsByTagName("text");
             textElements[0].AppendChild(toastXml.CreateTextNode(string.Format("{0} episode today", tvShow.Name)));
-            textElements[1].AppendChild(toastXml.CreateTextNode(tvShow.NextEpisodeDate.Value.ToLocalTime().ToString("MMM/dd/yyyy h:mm tt")));
+            textElements[1].AppendChild(toastXml.CreateTextNode(string.Format("{0}: {1}", tvShow.NextEpisodeId, tvShow.NextEpisodeName)));
 
             var toast = new ToastNotification(toastXml);
 

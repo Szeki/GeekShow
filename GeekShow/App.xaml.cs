@@ -70,7 +70,9 @@ namespace GeekShow
 
         private void RegisterTypes()
         {
-            IoC.Container.RegisterInstance<ITvShowService>(new TvShowTvRageService());
+            //IoC.Container.RegisterInstance<ITvShowService>(new TvShowTvRageService());
+            IoC.Container.RegisterInstance<ITvShowService>(new TvShowImdbService());
+            IoC.Container.RegisterInstance<ITvShowEpisodeService>(new TvShowEpisodeImdbService());
             IoC.Container.RegisterInstance<INavigationService>(new NavigationService());
             IoC.Container.RegisterInstance<ITvShowPersistManager>(new TvShowPersistManager());
             IoC.Container.RegisterType<IPopupMessageService, MessageBoxPopupService>();
