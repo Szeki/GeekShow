@@ -113,7 +113,7 @@ namespace GeekShow.Shared.Component
             }
 
             var resolvedType = _typeRegistrations[typeToResolve];
-            var constructor = resolvedType.GetTypeInfo().DeclaredConstructors.FirstOrDefault();
+            var constructor = resolvedType.GetTypeInfo().DeclaredConstructors.FirstOrDefault(ctor => !ctor.IsStatic);
             var constructorParameterInfos = constructor.GetParameters();
             var constructorParameters = new object[constructorParameterInfos.Length];
 
@@ -121,7 +121,7 @@ namespace GeekShow.Shared.Component
             {
                 constructorParameters[i] = ResolveType(constructorParameterInfos[i].ParameterType);
             }
-
+            
             return constructor.Invoke(constructorParameters);
         }
 

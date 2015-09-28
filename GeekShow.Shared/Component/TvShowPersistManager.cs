@@ -10,13 +10,13 @@ namespace GeekShow.Shared.Component
     {
         #region Members
 
-        readonly JsonSerializerSettings _serializerSettings;
+        readonly static JsonSerializerSettings _serializerSettings;
 
         #endregion
 
         #region Constructor
 
-        public TvShowPersistManager()
+        static TvShowPersistManager()
         {
             _serializerSettings = new JsonSerializerSettings()
             {
@@ -26,7 +26,7 @@ namespace GeekShow.Shared.Component
                 MissingMemberHandling = MissingMemberHandling.Ignore
             };
         }
-
+        
         #endregion
 
         #region ITvShowPersistManager implementation
