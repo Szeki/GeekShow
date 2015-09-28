@@ -39,7 +39,7 @@ namespace GeekShow.Shared.Component
             {
                 var nextEpisodeDate = GetNextEpisodeDate(tvShow.NextEpisodeDate);
 
-                if (tvShow.EndDate != null || (nextEpisodeDate != null && nextEpisodeDate.Value.ToLocalTime() > DateTimeOffset.Now))
+                if (tvShow.EndDate != null || (nextEpisodeDate != null && nextEpisodeDate.Value.DateTime > DateTimeOffset.Now))
                 {
                     continue;
                 }

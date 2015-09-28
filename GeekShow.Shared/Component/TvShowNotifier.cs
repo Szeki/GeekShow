@@ -30,7 +30,7 @@ namespace GeekShow.Shared.Component
 
         #region Public Methods
 
-        public async void CalculateAndSendNotifications()
+        public async Task CalculateAndSendNotificationsAsync()
         {
             var tvShows = _persistManager.LoadTvShowsAsync();
             var notifiedTvShows = await _persistManager.LoadNotifiedTvShowsAsync();
@@ -38,10 +38,11 @@ namespace GeekShow.Shared.Component
 
             foreach (var tvShow in (await tvShows).Where(item => item.EndDate == null && item.NextEpisodeDate != null))
             {
-                var utcNow = DateTimeProvider.UtcNow;
-                var notificationDeadLine = GetNextEpisodeDate(tvShow.NextEpisodeDate).Value.UtcDateTime.Subtract(NotificationTimeSpan);
+                var now = DateTimeProvider.Now;
+                var nextEpisodeDate = GetNextEpisodeDate(tvShow.NextEpisodeDate);
+                var notificationDeadLine = nextEpisodeDate.Value.DateTime.Subtract(NotificationTimeSpan);
 
-                if (tvShow.NextEpisodeDate.Value.UtcDateTime < utcNow || notificationDeadLine > utcNow)
+                if (nextEpisodeDate.Value.DateTime < now || notificationDeadLine > now)
                 {
                     continue;
                 }

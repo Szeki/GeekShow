@@ -17,14 +17,14 @@ namespace GeekShow.Tasks
             IoC.Container.RegisterType<INotificationManager, NotificationManager>();
         }
 
-        public void Run(IBackgroundTaskInstance taskInstance)
+        public async void Run(IBackgroundTaskInstance taskInstance)
         {
             var deferral = taskInstance.GetDeferral();
 
             var persistManager = IoC.Container.ResolveType<ITvShowPersistManager>();
             var notificationManager = IoC.Container.ResolveType<INotificationManager>();
 
-            new TvShowNotifier(persistManager, notificationManager).CalculateAndSendNotifications();
+            await new TvShowNotifier(persistManager, notificationManager).CalculateAndSendNotificationsAsync();
 
             deferral.Complete();
         }

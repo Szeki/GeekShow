@@ -98,7 +98,7 @@ namespace GeekShow.Shared.Service
         private async Task EnrichEpisodeInformation(TvShowQuickInfoItem tvShow)
         {
             var episodeService = IoC.Container.ResolveType<ITvShowEpisodeService>();
-            var today = DateTimeProvider.UtcNow.Date;
+            var today = DateTimeProvider.Now.Date;
 
             var episodes = await episodeService.GetEpisodesAsync(tvShow.ShowName, tvShow.Started.Year);
 
