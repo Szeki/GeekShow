@@ -124,14 +124,14 @@ namespace GeekShow.Shared.Service
                 }
                 else
                 {
-                    EnrichEpisode(tvShow, episode, nextEpisode);
+                    EnrichEpisodeAndSeason(tvShow, episode, nextEpisode);
 
                     return;
                 }
             }
         }
-
-        private void EnrichEpisode(TvShowQuickInfoItem tvShow, TvShowEpisode lastEpisode, TvShowEpisode nextEpisode)
+        
+        private void EnrichEpisodeAndSeason(TvShowQuickInfoItem tvShow, TvShowEpisode lastEpisode, TvShowEpisode nextEpisode)
         {
             tvShow.LastEpisodeDate = lastEpisode.ReleaseDate;
             tvShow.LastEpisodeId = GetEpisodeId(lastEpisode.Season, lastEpisode.Episode);
@@ -139,6 +139,8 @@ namespace GeekShow.Shared.Service
             tvShow.NextEpisodeDate = nextEpisode?.ReleaseDate;
             tvShow.NextEpisodeId = nextEpisode == null ? null : GetEpisodeId(nextEpisode.Season, nextEpisode.Episode);
             tvShow.NextEpisodeName = nextEpisode?.Title;
+
+            tvShow.Seasons = nextEpisode?.Season ?? lastEpisode.Season;
         }
 
         private string GetEpisodeId(int season, int episodeNumber)

@@ -140,8 +140,8 @@ namespace GeekShow.ViewModel
             tvShow.NextEpisodeId = tvShowQuickInfo.NextEpisodeId;
             tvShow.NextEpisodeName = tvShowQuickInfo.NextEpisodeName;
             tvShow.NextEpisodeDate = tvShowQuickInfo.NextEpisodeDate;
-            tvShow.Seasons = tvShowBaseInfo.Seasons;
-            tvShow.Ended = tvShowBaseInfo.EndDate == null ? 0 : tvShowBaseInfo.EndDate.Value.Year;
+            tvShow.Seasons = tvShowQuickInfo.Seasons;
+            tvShow.Ended = tvShowBaseInfo.EndDate == null ? null : (int?)tvShowBaseInfo.EndDate.Value.Year;
         }
 
         #endregion

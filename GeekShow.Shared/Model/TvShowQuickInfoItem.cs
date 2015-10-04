@@ -42,6 +42,11 @@ namespace GeekShow.Shared.Model
             set;
         }
 
+        public int Seasons
+        {
+            get;
+            set;
+        }
 
         public string LastEpisodeId
         {

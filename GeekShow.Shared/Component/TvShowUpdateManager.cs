@@ -113,9 +113,9 @@ namespace GeekShow.Shared.Component
 
                 updated = true;
             }
-            if (tvShow.Seasons != tvShowBaseInfo.Seasons)
+            if (tvShow.Seasons != tvShowQuickInfo.Seasons)
             {
-                tvShow.Seasons = tvShowBaseInfo.Seasons;
+                tvShow.Seasons = tvShowQuickInfo.Seasons;
                 updated = true;
             }
 
