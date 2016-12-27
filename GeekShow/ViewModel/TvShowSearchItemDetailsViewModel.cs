@@ -1,6 +1,9 @@
 ﻿using GeekShow.Component;
+using GeekShow.Core.Model;
+using GeekShow.Core.Model.TvMaze;
+using GeekShow.Core.Service;
 using GeekShow.Shared.Component;
-using GeekShow.Shared.Model;
+using System;
 using System.Linq;
 using System.Windows.Input;
 
@@ -15,23 +18,26 @@ namespace GeekShow.ViewModel
 
         bool _isProcessingData;
 
+        readonly IPopupMessageService _popupService;
+
         #endregion
 
         #region Constructor
 
-        public TvShowSearchItemDetailsViewModel(TvShowItem tvShow)
+        public TvShowSearchItemDetailsViewModel(INavigationService navigationService, Core.Service.ITvShowService tvShowService, IPopupMessageService popupService)
+            : base(navigationService, tvShowService)
         {
-            TvShow = tvShow;
+            _popupService = popupService;
         }
 
         #endregion
 
         #region Properties
 
-        public TvShowItem TvShow
+        public TvMazeItem TvShow
         {
             get;
-            private set;
+            set;
         }
 
         public ICommand SubscribeCommand
@@ -70,7 +76,7 @@ namespace GeekShow.ViewModel
 
         #region Private Methods
 
-        private async void SubscribeToTvShow()
+        private void SubscribeToTvShow()
         {
             if(IsProcessingData)
             {
@@ -81,25 +87,17 @@ namespace GeekShow.ViewModel
 
             var processed = false;
 
-            if (TvShows.All(item => item.ShowId != TvShow.ShowId))
+            if (TvShows.All(item => item.TvShow.Id != TvShow.Id))
             {
-                var show = TvShowSubscribedItem.CloneBaseItem(TvShow);
-
                 try
                 {
-                    var showQuickInfo = await TvShowService.GetTvShowQuickInfoAsync(show.Name);
-
-                    EnrichTvShow(show, showQuickInfo);
-
-                    AddTvShowAndPersist(show);
+                    AddTvShowAndPersist(GetTvShow(TvShow));
 
                     processed = true;
                 }
-                catch
+                catch(Exception ex)
                 {
-                    var popupService = IoC.Container.ResolveType<IPopupMessageService>();
-
-                    popupService.DisplayMessage("Problem with network connection", "No internet connection");
+                    _popupService.DisplayMessage("Problem during subscription", ex.Message);
                 }
             }
 
@@ -110,21 +108,7 @@ namespace GeekShow.ViewModel
                 NavigationService.Navigate(typeof(MainPage), MainPageItems.List);
             }
         }
-
-        private void EnrichTvShow(TvShowSubscribedItem tvShow, TvShowQuickInfoItem tvShowQuickInfo)
-        {
-            tvShow.Genres = tvShowQuickInfo.Genres;
-            tvShow.Network = tvShowQuickInfo.Network;
-            tvShow.AirTime = tvShowQuickInfo.AirTime;
-            tvShow.RunTime = tvShowQuickInfo.Runtime;
-            tvShow.LastEpisodeId = tvShowQuickInfo.LastEpisodeId;
-            tvShow.LastEpisodeName = tvShowQuickInfo.LastEpisodeName;
-            tvShow.LastEpisodeDate = tvShowQuickInfo.LastEpisodeDate;
-            tvShow.NextEpisodeId = tvShowQuickInfo.NextEpisodeId;
-            tvShow.NextEpisodeName = tvShowQuickInfo.NextEpisodeName;
-            tvShow.NextEpisodeDate = tvShowQuickInfo.NextEpisodeDate;
-        }
-
+        
         private void CancelDetailsView()
         {
             if (IsProcessingData)
@@ -133,6 +117,32 @@ namespace GeekShow.ViewModel
             }
 
             NavigationService.GoBack();
+        }
+
+        private TvMazeTvShow GetTvShow(TvMazeItem item)
+        {
+            var tvShow = new TvMazeTvShow()
+            {
+                TvShow = TvShow
+            };
+
+            var previousEpisode = TvShow.Links.PreviousEpisode == null ? null : TvShowService.GetEpisode(TvMazeServiceHelper.GetEpisodeIdFromUrl(TvShow.Links.PreviousEpisode.Href));
+            var nextEpisode = TvShow.Links.NextEpisode == null ? null : TvShowService.GetEpisode(TvMazeServiceHelper.GetEpisodeIdFromUrl(TvShow.Links.NextEpisode.Href));
+            
+            tvShow.PreviousEpisode = previousEpisode;
+            tvShow.NextEpisode = nextEpisode;
+
+            if (previousEpisode != null)
+            {
+                tvShow.Episodes.Add(previousEpisode);
+            }
+
+            if (nextEpisode != null)
+            {
+                tvShow.Episodes.Add(nextEpisode);
+            }
+
+            return tvShow;
         }
 
         #endregion

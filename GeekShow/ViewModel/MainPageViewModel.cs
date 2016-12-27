@@ -1,4 +1,6 @@
-﻿using GeekShow.Shared.Model;
+﻿using GeekShow.Shared.Component;
+using GeekShow.Core.Model;
+using GeekShow.Shared.Service;
 
 namespace GeekShow.ViewModel
 {
@@ -12,12 +14,14 @@ namespace GeekShow.ViewModel
 
         #region Constructor
 
-        public MainPageViewModel()
+        public MainPageViewModel(INavigationService navigationService, Core.Service.ITvShowService tvShowService,
+            SearchTvShowViewModel searchTvShowViewModel, ListMyTvShowViewModel listMyTvShowViewModel)
+            : base(navigationService, tvShowService)
         {
             LoadPersistedTvShows();
 
-            SearchTvShowViewModel = new SearchTvShowViewModel();
-            ListMyTvShowViewModel = new ListMyTvShowViewModel();
+            SearchTvShowViewModel = searchTvShowViewModel;
+            ListMyTvShowViewModel = listMyTvShowViewModel;
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿using GeekShow.Shared.Model;
+﻿using GeekShow.Core.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

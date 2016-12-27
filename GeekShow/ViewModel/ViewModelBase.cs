@@ -1,8 +1,7 @@
-﻿using GeekShow.Shared.Component;
-using GeekShow.Shared.Model;
-using GeekShow.Shared.Service;
-using System;
-using System.Collections.Generic;
+﻿using GeekShow.Core.Component;
+using GeekShow.Core.Model;
+using GeekShow.Core.Model.TvMaze;
+using GeekShow.Shared.Component;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -13,23 +12,21 @@ namespace GeekShow.ViewModel
     {
         #region Members
 
-        static ObservableCollection<TvShowSubscribedItem> _tvShows;
-        static ITvShowPersistManager _persistManager;
-
+        static ObservableCollection<TvMazeTvShow> _tvShows;
+        
         #endregion
 
         #region Constructor
 
         static ViewModelBase()
         {
-            _tvShows = new ObservableCollection<TvShowSubscribedItem>();
-            _persistManager = IoC.Container.ResolveType<ITvShowPersistManager>();
+            _tvShows = new ObservableCollection<TvMazeTvShow>();
         }
 
-        public ViewModelBase()
+        public ViewModelBase(INavigationService navigationService, Core.Service.ITvShowService tvShowService)
         {
-            NavigationService = IoC.Container.ResolveType<INavigationService>();
-            TvShowService = IoC.Container.ResolveType<ITvShowService>();
+            NavigationService = navigationService;
+            TvShowService = tvShowService;
         }
 
         #endregion
@@ -58,18 +55,28 @@ namespace GeekShow.ViewModel
             set;
         }
 
-        protected ITvShowService TvShowService
+        protected Core.Service.ITvShowService TvShowService
         {
             get;
             set;
         }
 
-        public ObservableCollection<TvShowSubscribedItem> TvShows
+        public ObservableCollection<TvMazeTvShow> TvShows
         {
             get
             {
                 return _tvShows;
             }
+        }
+
+        #endregion
+
+        #region Static Properties
+
+        public static ITvShowPersistManager PersistManager
+        {
+            get;
+            set;
         }
 
         #endregion
@@ -84,7 +91,7 @@ namespace GeekShow.ViewModel
         {
             _tvShows.Clear();
 
-            foreach(var tvShow in await _persistManager.LoadTvShowsAsync())
+            foreach(var tvShow in await PersistManager.LoadTvShowsAsync())
             {
                 _tvShows.Add(tvShow);
             }
@@ -92,63 +99,54 @@ namespace GeekShow.ViewModel
 
         public static async void UpdateTvShows()
         {
-            var updatedShows = await _persistManager.LoadTvShowsAsync();
+            var updatedShows = await PersistManager.LoadTvShowsAsync();
 
-            foreach(var tvShow in _tvShows)
+            foreach (var tvShow in _tvShows)
             {
-                var updatedShow = updatedShows.FirstOrDefault(item => item.ShowId == tvShow.ShowId);
+                var updatedShow = updatedShows.FirstOrDefault(item => item.TvShow.Id == tvShow.TvShow.Id);
 
-                if(updatedShow == null)
+                if (updatedShow == null)
                 {
                     continue;
                 }
-
+                
                 UpdateTvShow(tvShow, updatedShow);
             }
         }
-
-        public static IEnumerable<TvShowSubscribedItem> GetTvShows()
-        {
-            return _tvShows.ToArray();
-        }
-
+        
         #endregion
 
         #region Protected Methods
 
-        protected async void AddTvShowAndPersist(TvShowSubscribedItem tvShow)
+        protected async void AddTvShowAndPersist(TvMazeTvShow tvShow)
         {
             TvShows.Add(tvShow);
 
-            await _persistManager.SaveTvShowsAsync(TvShows);
+            await PersistManager.SaveTvShowsAsync(TvShows);
         }
 
-        protected async void RemoveTvShowAndPersist(TvShowSubscribedItem tvShow)
+        protected async void RemoveTvShowAndPersist(TvMazeTvShow tvShow)
         {
             TvShows.Remove(tvShow);
 
-            await _persistManager.SaveTvShowsAsync(TvShows);
+            await PersistManager.SaveTvShowsAsync(TvShows);
         }
 
         protected async void SaveTvShows()
         {
-            await _persistManager.SaveTvShowsAsync(TvShows);
+            await PersistManager.SaveTvShowsAsync(TvShows);
         }
 
         #endregion
 
         #region Private Methods
 
-        private static void UpdateTvShow(TvShowSubscribedItem current, TvShowSubscribedItem updated)
+        private static void UpdateTvShow(TvMazeTvShow current, TvMazeTvShow updated)
         {
-            current.LastEpisodeId = updated.LastEpisodeId;
-            current.LastEpisodeName = updated.LastEpisodeName;
-            current.LastEpisodeDate = updated.LastEpisodeDate;
-            current.NextEpisodeId = updated.NextEpisodeId;
-            current.NextEpisodeName = updated.NextEpisodeName;
-            current.NextEpisodeDate = updated.NextEpisodeDate;
-            current.Status = updated.Status;
-            current.EndDate = updated.EndDate;
+            current.TvShow = updated.TvShow;
+            current.PreviousEpisode = updated.PreviousEpisode;
+            current.NextEpisode = updated.NextEpisode;
+            current.Episodes = updated.Episodes;
         }
 
         #endregion

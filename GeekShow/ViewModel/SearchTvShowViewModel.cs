@@ -1,11 +1,9 @@
 ﻿using GeekShow.Component;
+using GeekShow.Core.Model.TvMaze;
 using GeekShow.Shared.Component;
-using GeekShow.Shared.Model;
-using GeekShow.Shared.Service;
 using GeekShow.View;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace GeekShow.ViewModel
@@ -20,14 +18,19 @@ namespace GeekShow.ViewModel
         string _searchText;
         bool _isProgressBarVisible;
 
-        List<TvShowItem> _searchResult;
+        List<TvMazeItem> _searchResult;
+
+        readonly IPopupMessageService _popupService;
 
         #endregion
 
         #region Constructor
 
-        public SearchTvShowViewModel()
+        public SearchTvShowViewModel(INavigationService navigationService, 
+            IPopupMessageService popupService, Core.Service.ITvShowService service)
+            : base(navigationService, service)
         {
+            _popupService = popupService;
         }
 
         #endregion
@@ -84,7 +87,7 @@ namespace GeekShow.ViewModel
             }
         }
 
-        public List<TvShowItem> SearchResult
+        public List<TvMazeItem> SearchResult
         {
             get
             {
@@ -119,15 +122,13 @@ namespace GeekShow.ViewModel
             {
                 var searchResult = await TvShowService.SearchShowAsync(SearchText);
 
-                SearchResult = new List<TvShowItem>(searchResult);
+                SearchResult = searchResult.ToList();
             }
             catch
             {
-                var popupService = IoC.Container.ResolveType<IPopupMessageService>();
+                _popupService.DisplayMessage("Problem with network connection", "No internet connection");
 
-                popupService.DisplayMessage("Problem with network connection", "No internet connection");
-
-                SearchResult = new List<TvShowItem>();
+                SearchResult = new List<TvMazeItem>();
             }
 
             IsProgressBarVisible = false;
@@ -143,64 +144,18 @@ namespace GeekShow.ViewModel
 
         #region Private Methods
 
-        private async void TvShowClicked(object param)
+        private void TvShowClicked(object param)
         {
-            var tvShow = param as TvShowItem;
+            var tvShow = param as TvMazeItem;
 
             if(tvShow == null)
             {
                 return;
             }
-
-            IsProgressBarVisible = true;
-
-            await EnrichSeasonInformation(tvShow);
-
-            await EnrichCountryAndPlotInformation(tvShow);
-
-            IsProgressBarVisible = false;
-
-            NavigationService.Navigate(typeof(TvShowSearchItemDetailsPage), new TvShowSearchItemDetailsViewModel(tvShow));
+            
+            NavigationService.Navigate(typeof(TvShowSearchItemDetailsPage), tvShow);
         }
         
-        private async Task EnrichSeasonInformation(TvShowItem tvShow)
-        {
-            if(tvShow == null || tvShow.Seasons != default(int))
-            {
-                return;
-            }
-
-            var helperService = IoC.Container.ResolveType<ITvShowEpisodeService>();
-
-            try
-            {
-                var episodes = await helperService.GetEpisodesAsync(tvShow.Name, tvShow.Started);
-
-                if (episodes.Any())
-                {
-                    tvShow.Seasons = episodes.Max(ep => ep.Season);
-                }
-            }
-            catch { }
-        }
-
-        private async Task EnrichCountryAndPlotInformation(TvShowItem tvShow)
-        {
-            if(tvShow == null || !string.IsNullOrEmpty(tvShow.Country) || !string.IsNullOrEmpty(tvShow.Plot))
-            {
-                return;
-            }
-
-            try
-            {
-                var tvShowFullInfo = await TvShowService.GetTvShowAsync(tvShow.ShowId);
-
-                tvShow.Country = tvShowFullInfo.Country;
-                tvShow.Plot = tvShowFullInfo.Plot;
-            }
-            catch { }
-        }
-
         #endregion
     }
 }

@@ -14,37 +14,28 @@
     <UserControl.Resources>
         <converters:BooleanInverter x:Key="BooleanInverter"/>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="50"/>
-        </Grid.ColumnDefinitions>
-
         <TextBox
-            Grid.Row="0" Grid.Column="0"
+            Grid.Row="0"
             PlaceholderText="Search a Tv Show"
-            IsSpellCheckEnabled="false"
+            IsSpellCheckEnabled="False"
+            FontSize="24"
+            VerticalAlignment="Stretch" VerticalContentAlignment="Center" 
+            MinHeight="50" MaxHeight="50" Padding="5,8,0,0" Margin="0"
             IsEnabled="{Binding Path=IsProgressBarVisible, Mode=OneWay, Converter={StaticResource BooleanInverter}}"
             Text="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             KeyDown="TextBox_KeyDown"/>
 
-        <AppBarButton
-            x:Name="SearchButton"
-            Grid.Row="0" Grid.Column="1"
-            Margin="-15,-2,0,0"
-            Icon="Find"
-            IsEnabled="{Binding Path=IsProgressBarVisible, Mode=OneWay, Converter={StaticResource BooleanInverter}}"
-            Command="{Binding Path=SearchCommand}"/>
-
         <ListView
-            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-            IsItemClickEnabled="true"
+            Grid.Row="1"
+            IsItemClickEnabled="True"
+            VerticalAlignment="Top"
             ItemsSource="{Binding Path=SearchResult, Mode=OneWay}"
             component:ItemClickCommand.Command="{Binding Path=TvShowItemClickedCommand}">
             <ListView.ItemTemplate>
@@ -60,7 +51,6 @@
 
         <ProgressRing
             Grid.Row="0" Grid.RowSpan="2"
-            Grid.Column="0" Grid.ColumnSpan="2"
             IsActive="{Binding Path=IsProgressBarVisible, Mode=OneWay}"/>
 
     </Grid>

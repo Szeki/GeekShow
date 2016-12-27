@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="Component\BackgroundTaskAccessHelper.cs" />
     <Compile Include="Component\BackgroundTaskRegistrationHelper.cs" />
+    <Compile Include="Component\IoC.cs" />
     <Compile Include="Component\ItemClickedCommand.cs" />
     <Compile Include="Component\MessageBoxPopupService.cs" />
     <Compile Include="Component\NavigationService.cs" />
@@ -157,8 +158,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\GeekShow.Core\GeekShow.Core.csproj">
+      <Project>{820898b4-15b1-4391-8355-8bf1819ed5d3}</Project>
+      <Name>GeekShow.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GeekShow.Shared\GeekShow.Shared.csproj">
       <Project>{9cd5962a-c4fc-4c37-ae20-b780efeb8879}</Project>
       <Name>GeekShow.Shared</Name>
@@ -167,6 +171,15 @@
       <Project>{dd570158-2635-49be-ad6a-746ff4698e97}</Project>
       <Name>GeekShow.Tasks</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using GeekShow.Component;
+using GeekShow.Core.Model.TvMaze;
+using GeekShow.ViewModel;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -24,6 +15,7 @@ namespace GeekShow.View
     {
         public TvShowSearchItemDetailsPage()
         {
+            this.DataContext = IoC.Resolve<TvShowSearchItemDetailsViewModel>();
             this.InitializeComponent();
 
             Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
@@ -48,7 +40,14 @@ namespace GeekShow.View
         {
             if(e.NavigationMode == NavigationMode.New || e.NavigationMode == NavigationMode.Refresh)
             {
-                this.DataContext = e.Parameter;
+                var viewModel = this.DataContext as TvShowSearchItemDetailsViewModel;
+
+                if(viewModel == null)
+                {
+                    return;
+                }
+
+                viewModel.TvShow = e.Parameter as TvMazeItem;
             }
         }
     }

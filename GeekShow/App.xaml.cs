@@ -1,4 +1,5 @@
 ﻿using GeekShow.Component;
+using GeekShow.Core.Component;
 using GeekShow.Shared.Component;
 using GeekShow.Shared.Service;
 using GeekShow.ViewModel;
@@ -45,6 +46,7 @@ namespace GeekShow
         public App()
         {
             RegisterTypes();
+            ResolveDefaultTypes();
 
             if (!Windows.Storage.ApplicationData.Current.LocalSettings.Values.ContainsKey("AppVersion"))
             {
@@ -70,13 +72,12 @@ namespace GeekShow
 
         private void RegisterTypes()
         {
-            //IoC.Container.RegisterInstance<ITvShowService>(new TvShowTvRageService());
-            IoC.Container.RegisterInstance<ITvShowService>(new TvShowImdbService());
-            IoC.Container.RegisterInstance<ITvShowEpisodeService>(new TvShowEpisodeImdbService());
-            IoC.Container.RegisterInstance<INavigationService>(new NavigationService());
-            IoC.Container.RegisterInstance<ITvShowPersistManager>(new TvShowPersistManager());
-            IoC.Container.RegisterType<IPopupMessageService, MessageBoxPopupService>();
-            IoC.Container.RegisterType<MainPageViewModel>();
+            IoC.BuildContainer();
+        }
+
+        private void ResolveDefaultTypes()
+        {
+            ViewModelBase.PersistManager = IoC.Resolve<ITvShowPersistManager>();
         }
 
         private void RegisterBackgroundTasks()
@@ -84,12 +85,12 @@ namespace GeekShow
             BackgroundTaskAccessHelper.CheckAppVersion();
 
             BackgroundTaskRegistrationHelper.RegisterBackgroundTask("GeekShow.Tasks.UpdateShowsTask", "UpdateShows",
-                new TimeTrigger(30, false),
+                new TimeTrigger(120, false),
                 new SystemCondition(SystemConditionType.UserNotPresent | SystemConditionType.InternetAvailable));
 
             BackgroundTaskRegistrationHelper.RegisterBackgroundTask("GeekShow.Tasks.NotifyShowsTask", "NotifyShows",
                 new TimeTrigger(120, false),
-                null);
+                new SystemCondition(SystemConditionType.UserNotPresent));
         }
 
         private void UpdateTvShowsIfNecessary()
@@ -132,13 +133,11 @@ namespace GeekShow
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
-
-                // TODO: change this value to a cache size that is appropriate for your application
+                
                 rootFrame.CacheSize = 1;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    // TODO: Load state from previously suspended application
                 }
 
                 // Place the frame in the current Window
@@ -198,8 +197,7 @@ namespace GeekShow
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-
-            // TODO: Save application state and stop any background activity
+            
             deferral.Complete();
         }
 

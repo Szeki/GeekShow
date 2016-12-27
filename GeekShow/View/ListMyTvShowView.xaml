@@ -15,19 +15,7 @@
         <converters:NextEpisodeDatesVisibilityConverter x:Key="NextEpisodeDatesVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        <TextBlock
-            Grid.Row="0"
-            VerticalAlignment="Center"
-            FontSize="40"
-            Text="My Shows"/>
-        
         <ListView
-            Grid.Row="1"
             IsItemClickEnabled="true"
             ItemsSource="{Binding Path=TvShows, Mode=OneWay}"
             component:ItemClickCommand.Command="{Binding Path=TvShowItemClickedCommand}">
@@ -39,11 +27,11 @@
                         <TextBlock
                             FontSize="24"
                             TextWrapping="WrapWholeWords"
-                            Text="{Binding Path=Name}"/>
+                            Text="{Binding Path=TvShow.Name}"/>
                         <StackPanel
                             Margin="0,2,0,0"
                             Orientation="Horizontal"
-                            Visibility="{Binding Converter={StaticResource NextEpisodeDatesVisibilityConverter}}">
+                            Visibility="{Binding Path=NextEpisode, Converter={StaticResource NextEpisodeDatesVisibilityConverter}}">
                             <TextBlock
                                 FontSize="14"
                                 TextWrapping="WrapWholeWords"
@@ -52,7 +40,7 @@
                                 Margin="10,0,0,0"
                                 FontSize="14"
                                 TextWrapping="WrapWholeWords"
-                                Text="{Binding Path=NextEpisodeDate, Converter={StaticResource DateTimeConverter}}"/>
+                                Text="{Binding Path=NextEpisode.AirDate, Converter={StaticResource DateTimeConverter}}"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>

@@ -5,8 +5,12 @@
     xmlns:local="using:GeekShow.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converter="using:GeekShow.View.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <converter:DateTimeConverter x:Key="DateTimeConverter" DateTimeFormat="MM/dd/yyyy"/>
+    </Page.Resources>
 
     <Grid
         Margin="10">
@@ -53,60 +57,60 @@
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
                             FontSize="16"
-                            Text="{Binding Path=TvShow.Started}"/>
+                            Text="{Binding Path=TvShow.Premiered, Converter={StaticResource DateTimeConverter}}"/>
 
                         <TextBlock
                             Grid.Row="1" Grid.Column="0"
                             VerticalAlignment="Center"
                             FontSize="20"
-                            Text="Ended:"/>
+                            Text="Status:"/>
 
                         <TextBlock
                             Grid.Row="1" Grid.Column="1"
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
                             FontSize="16"
-                            Text="{Binding Path=TvShow.Ended}"/>
+                            Text="{Binding Path=TvShow.Status}"/>
 
                         <TextBlock
                             Grid.Row="2" Grid.Column="0"
                             VerticalAlignment="Center"
                             FontSize="20"
-                            Text="Status:"/>
+                            Text="Genre:"/>
 
                         <TextBlock
                             Grid.Row="2" Grid.Column="1"
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
                             FontSize="16"
-                            Text="{Binding Path=TvShow.Status}"/>
-
+                            Text="{Binding Path=TvShow.GenresString}"/>
+                        
                         <TextBlock
                             Grid.Row="3" Grid.Column="0"
                             VerticalAlignment="Center"
                             FontSize="20"
-                            Text="Country:"/>
+                            Text="Network:"/>
 
                         <TextBlock
                             Grid.Row="3" Grid.Column="1"
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
                             FontSize="16"
-                            Text="{Binding Path=TvShow.Country}"/>
-
+                            Text="{Binding Path=TvShow.Network.Name}"/>
+                        
                         <TextBlock
                             Grid.Row="4" Grid.Column="0"
                             VerticalAlignment="Center"
                             FontSize="20"
-                            Text="Seasons:"/>
+                            Text="Country:"/>
 
                         <TextBlock
                             Grid.Row="4" Grid.Column="1"
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
                             FontSize="16"
-                            Text="{Binding Path=TvShow.Seasons}"/>
-            
+                            Text="{Binding Path=TvShow.Network.Country.Name}"/>
+
                     </Grid>
                 </ScrollViewer>
             </PivotItem>
@@ -117,7 +121,7 @@
                     <TextBlock
                         TextWrapping="WrapWholeWords"
                         FontSize="20"
-                        Text="{Binding Path=TvShow.Plot, Mode=OneWay}"/>
+                        Text="{Binding Path=TvShow.NormalizedSummary, Mode=OneWay}"/>
 
                 </ScrollViewer>
             </PivotItem>

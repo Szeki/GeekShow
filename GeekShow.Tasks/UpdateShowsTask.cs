@@ -1,26 +1,17 @@
-﻿using GeekShow.Shared.Component;
-using GeekShow.Shared.Model;
-using GeekShow.Shared.Service;
-using System;
+﻿using GeekShow.Core.Service;
+using GeekShow.Shared.Component;
 using Windows.ApplicationModel.Background;
 
 namespace GeekShow.Tasks
 {
     public sealed class UpdateShowsTask : IBackgroundTask
     {
-        static UpdateShowsTask()
-        {
-            IoC.Container.RegisterType<ITvShowEpisodeService, TvShowEpisodeImdbService>();
-            IoC.Container.RegisterType<ITvShowPersistManager, TvShowPersistManager>();
-            IoC.Container.RegisterType<ITvShowService, TvShowImdbService>();
-        }
-
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             var deferral = taskInstance.GetDeferral();
             
-            var tvShowService = IoC.Container.ResolveType<ITvShowService>();
-            var persistManager = IoC.Container.ResolveType<ITvShowPersistManager>();
+            var tvShowService = new TvMazeService();
+            var persistManager = new TvShowPersistManager();
             
             var updated = await new TvShowUpdateManager(tvShowService, persistManager).UpdateTvShowsAsync();
 

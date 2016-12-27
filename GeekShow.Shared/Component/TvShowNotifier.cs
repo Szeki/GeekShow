@@ -1,8 +1,9 @@
-﻿using GeekShow.Shared.Model;
+﻿using GeekShow.Core.Component;
+using GeekShow.Core.Model;
+using GeekShow.Core.Model.TvMaze;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GeekShow.Shared.Component
@@ -32,26 +33,29 @@ namespace GeekShow.Shared.Component
 
         public async Task CalculateAndSendNotificationsAsync()
         {
+            var now = DateTimeOffset.Now;
             var tvShows = _persistManager.LoadTvShowsAsync();
             var notifiedTvShows = await _persistManager.LoadNotifiedTvShowsAsync();
             var newlyNotifiedTvShows = new List<NotifiedTvShowItem>();
 
-            foreach (var tvShow in (await tvShows).Where(item => item.EndDate == null && item.NextEpisodeDate != null))
+            foreach (var tvShow in (await tvShows).Where(item => item.TvShow.Status != "Ended" && item.NextEpisode != null))
             {
-                var now = DateTimeProvider.Now;
-                var nextEpisodeDate = GetNextEpisodeDate(tvShow.NextEpisodeDate);
-                var notificationDeadLine = nextEpisodeDate.Value.DateTime.Subtract(NotificationTimeSpan);
+                var nextEpisodeDate = tvShow.NextEpisode.AirDate;
+                var airTimeParts = string.IsNullOrEmpty(tvShow.NextEpisode.AirTime) ? new string[0] : tvShow.NextEpisode.AirTime.Split(':');
 
-                if (nextEpisodeDate.Value.DateTime < now || notificationDeadLine > now)
+                var nextEpisodeDateAdjusted = new DateTime(nextEpisodeDate.Year, nextEpisodeDate.Month, nextEpisodeDate.Day, airTimeParts.Length == 0 ? 20 : int.Parse(airTimeParts[0]), airTimeParts.Length == 0 ? 0 : int.Parse(airTimeParts[1]), 0);
+                var notificationDeadLine = nextEpisodeDateAdjusted.Subtract(NotificationTimeSpan);
+
+                if (nextEpisodeDateAdjusted < now || notificationDeadLine > now)
                 {
                     continue;
                 }
 
-                var notifiedShow = notifiedTvShows.FirstOrDefault(item => item.ShowId == tvShow.ShowId && item.EpisodeId == tvShow.NextEpisodeId);
+                var notifiedShow = notifiedTvShows.FirstOrDefault(item => item.ShowId == tvShow.Id && item.EpisodeId == tvShow.NextEpisode.EpisodeId);
 
                 if (notifiedShow == null)
                 {
-                    notifiedShow = notifiedTvShows.FirstOrDefault(item => item.ShowId == tvShow.ShowId && item.EpisodeDate == tvShow.NextEpisodeDate.Value);
+                    notifiedShow = notifiedTvShows.FirstOrDefault(item => item.ShowId == tvShow.Id && item.EpisodeDate == tvShow.NextEpisode.AirStamp);
                 }
 
                 if (notifiedShow != null)
@@ -63,7 +67,7 @@ namespace GeekShow.Shared.Component
 
                 _notificationManager.SendEpisodeReminderNotification(tvShow);
 
-                newlyNotifiedTvShows.Add(new NotifiedTvShowItem(tvShow.ShowId) { EpisodeId = tvShow.NextEpisodeId, EpisodeDate = tvShow.NextEpisodeDate.Value, NotifiedAt = DateTimeProvider.UtcNow });
+                newlyNotifiedTvShows.Add(new NotifiedTvShowItem(tvShow.Id) { EpisodeId = tvShow.NextEpisode.EpisodeId, EpisodeDate = tvShow.NextEpisode.AirStamp, NotifiedAt = DateTimeProvider.UtcNow });
             }
 
             await _persistManager.SaveNotifiedTvShowsAsync(newlyNotifiedTvShows);

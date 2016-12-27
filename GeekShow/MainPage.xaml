@@ -7,17 +7,16 @@
     xmlns:local="using:GeekShow"
     xmlns:views="using:GeekShow.View"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="#FF555555">
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
         <Border
-            Grid.Row="0"
-            Background="#FF555555">
+            Grid.Row="0">
             <StackPanel
                 x:Name="MenuPanel"
                 Orientation="Horizontal"
@@ -54,18 +53,19 @@
 
             </StackPanel>
         </Border>
-        
+
         <Pivot
+            Margin="0,30,0,0"
             x:Name="MainContainer"
+            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
             Grid.Row="1"
             SelectedIndex="{Binding Path=SelectedMenuIndex, Mode=TwoWay}"
-            SelectionChanged="MainContainer_SelectionChanged"
-            Margin="0,-20,0,0">
-            <PivotItem>
+            SelectionChanged="MainContainer_SelectionChanged">
+            <PivotItem Header="My Shows" Foreground="White" >
                 <views:ListMyTvShowView
                     DataContext="{Binding Path=ListMyTvShowViewModel}"/>
             </PivotItem>
-            <PivotItem>
+            <PivotItem Header="Search" Foreground="White">
                 <views:SearchTvShowView
                     DataContext="{Binding Path=SearchTvShowViewModel}"/>
             </PivotItem>

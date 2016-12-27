@@ -1,7 +1,11 @@
 ﻿using GeekShow.Component;
 using GeekShow.Shared.Component;
-using GeekShow.Shared.Model;
+using GeekShow.Core.Model;
+using GeekShow.Shared.Service;
 using System.Windows.Input;
+using GeekShow.Core.Model.TvMaze;
+using GeekShow.Core.Service;
+using System.Linq;
 
 namespace GeekShow.ViewModel
 {
@@ -15,23 +19,27 @@ namespace GeekShow.ViewModel
 
         bool _isProcessInProgress;
 
+        readonly IPopupMessageService _popupService;
+        
         #endregion
 
         #region Constructor
 
-        public TvShowSubscribedItemDetailsViewModel(TvShowSubscribedItem tvShow)
+        public TvShowSubscribedItemDetailsViewModel(INavigationService navigationService, IPopupMessageService popupService,
+            Core.Service.ITvShowService service)
+            : base(navigationService, service)
         {
-            TvShow = tvShow;
+            _popupService = popupService;
         }
 
         #endregion
 
         #region Properties
 
-        public TvShowSubscribedItem TvShow
+        public TvMazeTvShow TvShow
         {
             get;
-            private set;
+            set;
         }
 
         public ICommand DropItemCommand
@@ -111,39 +119,20 @@ namespace GeekShow.ViewModel
 
             try
             {
-                var tvShowBaseInfo = TvShowService.GetTvShowAsync(TvShow.ShowId);
-                var tvShowQuickInfo = TvShowService.GetTvShowQuickInfoAsync(TvShow.Name);
+                var tvShowBaseInfo = await TvShowService.GetTvShowAsync(TvShow.Id);
 
-                EnrichTvShow(TvShow, await tvShowBaseInfo, await tvShowQuickInfo);
+                TvMazeServiceHelper.UpdateTvShow(TvShowService, TvShow, tvShowBaseInfo);
 
                 SaveTvShows();
             }
             catch
             {
-                var popupService = IoC.Container.ResolveType<IPopupMessageService>();
-
-                popupService.DisplayMessage("Problem with network connection", "No internet connection");
+                _popupService.DisplayMessage("Problem with network connection", "No internet connection");
             }
 
             IsProcessInProgress = false;
         }
-
-        private void EnrichTvShow(TvShowSubscribedItem tvShow, TvShowItem tvShowBaseInfo, TvShowQuickInfoItem tvShowQuickInfo)
-        {
-            tvShow.Network = tvShowQuickInfo.Network;
-            tvShow.AirTime = tvShowQuickInfo.AirTime;
-            tvShow.RunTime = tvShowQuickInfo.Runtime;
-            tvShow.EndDate = tvShowQuickInfo.Ended;
-            tvShow.LastEpisodeId = tvShowQuickInfo.LastEpisodeId;
-            tvShow.LastEpisodeName = tvShowQuickInfo.LastEpisodeName;
-            tvShow.LastEpisodeDate = tvShowQuickInfo.LastEpisodeDate;
-            tvShow.NextEpisodeId = tvShowQuickInfo.NextEpisodeId;
-            tvShow.NextEpisodeName = tvShowQuickInfo.NextEpisodeName;
-            tvShow.NextEpisodeDate = tvShowQuickInfo.NextEpisodeDate;
-            tvShow.Seasons = tvShowQuickInfo.Seasons;
-            tvShow.Ended = tvShowBaseInfo.EndDate == null ? null : (int?)tvShowBaseInfo.EndDate.Value.Year;
-        }
-
+        
         #endregion
     }
 }

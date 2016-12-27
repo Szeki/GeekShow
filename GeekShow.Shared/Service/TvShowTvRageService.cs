@@ -1,10 +1,12 @@
-﻿using System;
+﻿using GeekShow.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace GeekShow.Shared.Service
 {
+    [Obsolete]
     public class TvShowTvRageService : ITvShowService
     {
         #region Members
@@ -27,7 +29,7 @@ namespace GeekShow.Shared.Service
 
         #region ITvShowService implementation
 
-        public IEnumerable<Model.TvShowItem> SearchShow(string searchValue)
+        public IEnumerable<TvShowItem> SearchShow(string searchValue)
         {
             using(var client = new HttpClient())
             {
@@ -39,12 +41,12 @@ namespace GeekShow.Shared.Service
             }
         }
 
-        public Task<IEnumerable<Model.TvShowItem>> SearchShowAsync(string searchValue)
+        public Task<IEnumerable<TvShowItem>> SearchShowAsync(string searchValue)
         {
             return Task.Factory.StartNew(() => SearchShow(searchValue));
         }
 
-        public Model.TvShowQuickInfoItem GetTvShowQuickInfo(string tvShowName)
+        public TvShowQuickInfoItem GetTvShowQuickInfo(string tvShowName)
         {
             using (var client = new HttpClient())
             {
@@ -56,12 +58,12 @@ namespace GeekShow.Shared.Service
             }
         }
 
-        public Task<Model.TvShowQuickInfoItem> GetTvShowQuickInfoAsync(string tvShowName)
+        public Task<TvShowQuickInfoItem> GetTvShowQuickInfoAsync(string tvShowName)
         {
             return Task.Factory.StartNew(() => GetTvShowQuickInfo(tvShowName));
         }
 
-        public Model.TvShowItem GetTvShow(string showId)
+        public TvShowItem GetTvShow(string showId)
         {
             using (var client = new HttpClient())
             {
@@ -73,7 +75,7 @@ namespace GeekShow.Shared.Service
             }
         }
 
-        public Task<Model.TvShowItem> GetTvShowAsync(string showId)
+        public Task<TvShowItem> GetTvShowAsync(string showId)
         {
             return Task.Factory.StartNew(() => GetTvShow(showId));
         }

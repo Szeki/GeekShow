@@ -1,5 +1,6 @@
 ﻿using GeekShow.Component;
-using GeekShow.Shared.Model;
+using GeekShow.Core.Model.TvMaze;
+using GeekShow.Shared.Component;
 using GeekShow.View;
 using System.Windows.Input;
 
@@ -14,6 +15,13 @@ namespace GeekShow.ViewModel
         #endregion
 
         #region Constructor
+
+        public ListMyTvShowViewModel(INavigationService navigationService, Core.Service.ITvShowService tvShowService)
+            : base(navigationService, tvShowService)
+        {
+
+        }
+
         #endregion
 
         #region Properties
@@ -28,18 +36,23 @@ namespace GeekShow.ViewModel
 
         #endregion
 
+        public override void ClearViewModel()
+        {
+            base.ClearViewModel();
+        }
+
         #region Private Methods
 
         private void TvShowItemClicked(object param)
         {
-            var tvShow = param as TvShowSubscribedItem;
+            var tvShow = param as TvMazeTvShow;
 
             if (tvShow == null)
             {
                 return;
             }
 
-            NavigationService.Navigate(typeof(TvShowSubscribedItemDetailsPage), new TvShowSubscribedItemDetailsViewModel(tvShow));
+            NavigationService.Navigate(typeof(TvShowSubscribedItemDetailsPage), tvShow);
         }
 
         #endregion

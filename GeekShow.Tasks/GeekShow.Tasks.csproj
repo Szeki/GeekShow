@@ -80,6 +80,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\GeekShow.Core\GeekShow.Core.csproj">
+      <Project>{820898b4-15b1-4391-8355-8bf1819ed5d3}</Project>
+      <Name>GeekShow.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GeekShow.Shared\GeekShow.Shared.csproj">
       <Project>{9cd5962a-c4fc-4c37-ae20-b780efeb8879}</Project>
       <Name>GeekShow.Shared</Name>

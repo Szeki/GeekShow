@@ -1,4 +1,4 @@
-﻿using GeekShow.Shared.Model;
+﻿using GeekShow.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,6 +8,7 @@ using Windows.Data.Xml.Dom;
 
 namespace GeekShow.Shared.Service
 {
+    [Obsolete]
     public class TvShowTvRageServiceQueryResultParser
     {
         #region Members
