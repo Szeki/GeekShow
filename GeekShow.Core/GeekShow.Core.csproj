@@ -48,11 +48,6 @@
     <Compile Include="Model\TvMaze\TvMazeNetwork.cs" />
     <Compile Include="Model\TvMaze\TvMazeSchedule.cs" />
     <Compile Include="Model\TvMaze\TvMazeTvShow.cs" />
-    <Compile Include="Model\TvShowEpisode.cs" />
-    <Compile Include="Model\TvShowEpisodeQucikInfo.cs" />
-    <Compile Include="Model\TvShowItem.cs" />
-    <Compile Include="Model\TvShowQuickInfoItem.cs" />
-    <Compile Include="Model\TvShowSubscribedItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\ITvShowPersistManager.cs" />
     <Compile Include="Service\ITvShowService.cs" />

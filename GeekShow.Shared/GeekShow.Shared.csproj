@@ -96,10 +96,6 @@
     <Compile Include="Component\TvShowPersistManager.cs" />
     <Compile Include="Component\TvShowUpdateManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\ITvShowEpisodeService.cs" />
-    <Compile Include="Service\ITvShowService.cs" />
-    <Compile Include="Service\TvShowTvRageServiceQueryResultParser.cs" />
-    <Compile Include="Service\TvShowTvRageService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">

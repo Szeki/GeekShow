@@ -1,6 +1,5 @@
-﻿using GeekShow.Shared.Component;
-using GeekShow.Core.Model;
-using GeekShow.Shared.Service;
+﻿using GeekShow.Core.Model;
+using GeekShow.Shared.Component;
 
 namespace GeekShow.ViewModel
 {

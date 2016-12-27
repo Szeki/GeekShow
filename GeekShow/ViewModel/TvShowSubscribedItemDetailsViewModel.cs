@@ -1,11 +1,8 @@
 ﻿using GeekShow.Component;
-using GeekShow.Shared.Component;
-using GeekShow.Core.Model;
-using GeekShow.Shared.Service;
-using System.Windows.Input;
 using GeekShow.Core.Model.TvMaze;
 using GeekShow.Core.Service;
-using System.Linq;
+using GeekShow.Shared.Component;
+using System.Windows.Input;
 
 namespace GeekShow.ViewModel
 {
