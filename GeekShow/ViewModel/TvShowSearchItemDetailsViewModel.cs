@@ -97,7 +97,7 @@ namespace GeekShow.ViewModel
                 }
                 catch(Exception ex)
                 {
-                    _popupService.DisplayMessage("Problem during subscription", ex.Message);
+                    _popupService.DisplayMessage(ex.Message, "Problem during subscription");
                 }
             }
 

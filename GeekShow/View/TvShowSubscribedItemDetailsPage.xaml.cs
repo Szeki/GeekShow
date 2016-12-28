@@ -19,8 +19,6 @@ namespace GeekShow.View
         {
             this.DataContext = IoC.Resolve<TvShowSubscribedItemDetailsViewModel>();
             this.InitializeComponent();
-
-            Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
         #endregion
@@ -34,7 +32,7 @@ namespace GeekShow.View
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.NavigationMode == NavigationMode.New || e.NavigationMode == NavigationMode.Refresh)
+            if (e.NavigationMode == NavigationMode.New || e.NavigationMode == NavigationMode.Refresh || e.NavigationMode == NavigationMode.Back)
             {
                 var viewModel = this.DataContext as TvShowSubscribedItemDetailsViewModel;
 
@@ -44,20 +42,6 @@ namespace GeekShow.View
                 }
 
                 viewModel.TvShow = e.Parameter as TvMazeTvShow;
-            }
-        }
-
-        #endregion
-
-        #region EventHandlers
-
-        private void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-            {
-                Frame.GoBack();
-
-                e.Handled = true;
             }
         }
 

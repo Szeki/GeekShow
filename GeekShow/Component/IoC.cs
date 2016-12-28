@@ -24,6 +24,7 @@ namespace GeekShow.Component
             container.RegisterType<ListMyTvShowViewModel>().AsSelf();
             container.RegisterType<TvShowSearchItemDetailsViewModel>().AsSelf();
             container.RegisterType<TvShowSubscribedItemDetailsViewModel>().AsSelf();
+            container.RegisterType<EpisodeSummaryViewModel>().AsSelf();
 
             scope = container.Build().BeginLifetimeScope();
         }

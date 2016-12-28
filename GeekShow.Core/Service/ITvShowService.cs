@@ -14,5 +14,11 @@ namespace GeekShow.Core.Service
 
         TvMazeEpisode GetEpisode(string episodeId);
         Task<TvMazeEpisode> GetEpisodeAsync(string episodeId);
+
+        TvMazeEpisode GetEpisodeByNumber(int showId, int season, int episodeNumber);
+        Task<TvMazeEpisode> GetEpisodeByNumberAsync(int showId, int season, int episodeNumber);
+
+        IEnumerable<TvMazeSeason> GetTvShowSeasons(int showId);
+        Task<IEnumerable<TvMazeSeason>> GetTvShowSeasonsAsync(int showId);
     }
 }

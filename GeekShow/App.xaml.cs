@@ -52,6 +52,8 @@ namespace GeekShow
             this.InitializeComponent();
             this.Suspending += this.OnSuspending;
             this.Resuming += OnResuming;
+            
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
         #endregion
@@ -98,6 +100,18 @@ namespace GeekShow
         #endregion
 
         #region Eventhandlers
+
+        void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
+        {
+            var frame = (Frame)(Window.Current.Content);
+
+            if (frame.CanGoBack)
+            {
+                frame.GoBack();
+
+                e.Handled = true;
+            }
+        }
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points

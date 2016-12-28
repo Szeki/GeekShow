@@ -7,5 +7,6 @@ namespace GeekShow.Shared.Component
         void Navigate(Type pageType);
         void Navigate(Type pageType, object param);
         void GoBack();
+        void GoHome();
     }
 }

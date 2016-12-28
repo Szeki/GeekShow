@@ -93,6 +93,7 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\EpisodeSummaryViewModel.cs" />
     <Compile Include="ViewModel\ListMyTvShowViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\SearchTvShowViewModel.cs" />
@@ -101,7 +102,11 @@
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\Converters\BooleanInverter.cs" />
     <Compile Include="View\Converters\DateTimeConverter.cs" />
+    <Compile Include="View\Converters\EpisodeNameConverter.cs" />
     <Compile Include="View\Converters\NextEpisodeDatesVisibilityConverter.cs" />
+    <Compile Include="View\EpisodeSummaryPage.xaml.cs">
+      <DependentUpon>EpisodeSummaryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ListMyTvShowView.xaml.cs">
       <DependentUpon>ListMyTvShowView.xaml</DependentUpon>
     </Compile>
@@ -140,6 +145,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\EpisodeSummaryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ListMyTvShowView.xaml">
       <SubType>Designer</SubType>

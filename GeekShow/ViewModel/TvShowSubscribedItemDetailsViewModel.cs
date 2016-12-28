@@ -2,6 +2,8 @@
 using GeekShow.Core.Model.TvMaze;
 using GeekShow.Core.Service;
 using GeekShow.Shared.Component;
+using GeekShow.View;
+using System;
 using System.Windows.Input;
 
 namespace GeekShow.ViewModel
@@ -13,6 +15,7 @@ namespace GeekShow.ViewModel
         RelayCommand _dropItemCommand;
         RelayCommand _backCommand;
         RelayCommand _refreshCommand;
+        RelayCommand _openEpisodeSummaryCommand;
 
         bool _isProcessInProgress;
 
@@ -60,6 +63,14 @@ namespace GeekShow.ViewModel
             get
             {
                 return _refreshCommand ?? (_refreshCommand = new RelayCommand(param => Refresh()));
+            }
+        }
+
+        public ICommand OpenEpisodeSummaryCommand
+        {
+            get
+            {
+                return (_openEpisodeSummaryCommand ?? (_openEpisodeSummaryCommand = new RelayCommand(param => OpenEpisodes())));
             }
         }
 
@@ -122,14 +133,19 @@ namespace GeekShow.ViewModel
 
                 SaveTvShows();
             }
-            catch
+            catch(Exception ex)
             {
-                _popupService.DisplayMessage("Problem with network connection", "No internet connection");
+                _popupService.DisplayMessage(ex.Message, "Problem during refresh");
             }
 
             IsProcessInProgress = false;
         }
         
+        private void OpenEpisodes()
+        {
+            NavigationService.Navigate(typeof(EpisodeSummaryPage), TvShow);
+        }
+
         #endregion
     }
 }

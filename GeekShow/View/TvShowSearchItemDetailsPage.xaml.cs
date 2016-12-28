@@ -1,4 +1,5 @@
 ﻿using GeekShow.Component;
+using GeekShow.Core.Model;
 using GeekShow.Core.Model.TvMaze;
 using GeekShow.ViewModel;
 using Windows.UI.Xaml.Controls;
@@ -17,18 +18,6 @@ namespace GeekShow.View
         {
             this.DataContext = IoC.Resolve<TvShowSearchItemDetailsViewModel>();
             this.InitializeComponent();
-
-            Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
-        }
-
-        void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
-        {
-            if (Frame.CanGoBack)
-            {
-                Frame.GoBack();
-
-                e.Handled = true;
-            }
         }
 
         /// <summary>
@@ -48,6 +37,11 @@ namespace GeekShow.View
                 }
 
                 viewModel.TvShow = e.Parameter as TvMazeItem;
+            }
+            else if(e.NavigationMode == NavigationMode.Back)
+            {
+                Frame.BackStack.Clear();
+                Frame.Navigate(typeof(MainPage), MainPageItems.Search);
             }
         }
     }

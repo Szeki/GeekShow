@@ -2,6 +2,7 @@
 using GeekShow.Core.Model.TvMaze;
 using GeekShow.Shared.Component;
 using GeekShow.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -124,9 +125,9 @@ namespace GeekShow.ViewModel
 
                 SearchResult = searchResult.ToList();
             }
-            catch
+            catch(Exception ex)
             {
-                _popupService.DisplayMessage("Problem with network connection", "No internet connection");
+                _popupService.DisplayMessage(ex.Message, "Problem during search");
 
                 SearchResult = new List<TvMazeItem>();
             }

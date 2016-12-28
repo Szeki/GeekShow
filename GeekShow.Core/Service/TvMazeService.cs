@@ -92,6 +92,54 @@ namespace GeekShow.Core.Service
             }
         }
 
+        public TvMazeEpisode GetEpisodeByNumber(int showId, int season, int episodeNumber)
+        {
+            using (var client = new HttpClient())
+            {
+                var task = client.GetStringAsync(new Uri($"{BaseUrl}/shows/{showId}/episodebynumber?season={season}&number={episodeNumber}"));
+
+                var response = task.Result;
+
+                return JsonConvert.DeserializeObject<TvMazeEpisode>(response);
+            }
+        }
+
+        public async Task<TvMazeEpisode> GetEpisodeByNumberAsync(int showId, int season, int episodeNumber)
+        {
+            using (var client = new HttpClient())
+            {
+                var task = client.GetStringAsync(new Uri($"{BaseUrl}/shows/{showId}/episodebynumber?season={season}&number={episodeNumber}"));
+
+                var response = await task;
+
+                return JsonConvert.DeserializeObject<TvMazeEpisode>(response);
+            }
+        }
+
+        public IEnumerable<TvMazeSeason> GetTvShowSeasons(int showId)
+        {
+            using (var client = new HttpClient())
+            {
+                var task = client.GetStringAsync(new Uri($"{BaseUrl}/shows/{showId}/seasons"));
+
+                var response = task.Result;
+
+                return JsonConvert.DeserializeObject<IEnumerable<TvMazeSeason>>(response);
+            }
+        }
+
+        public async Task<IEnumerable<TvMazeSeason>> GetTvShowSeasonsAsync(int showId)
+        {
+            using (var client = new HttpClient())
+            {
+                var task = client.GetStringAsync(new Uri($"{BaseUrl}/shows/{showId}/seasons"));
+
+                var response = await task;
+
+                return JsonConvert.DeserializeObject<IEnumerable<TvMazeSeason>>(response);
+            }
+        }
+
         private string UrlEncode(string value)
         {
             return WebUtility.UrlEncode(value);

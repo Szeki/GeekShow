@@ -251,7 +251,7 @@
         </Pivot>
         
         <ProgressRing
-            Grid.Row="1"
+            Grid.Row="0" Grid.RowSpan="2"
             IsActive="{Binding Path=IsProcessInProgress}"/>
     </Grid>
 
@@ -259,9 +259,9 @@
         <CommandBar>
             <CommandBar.PrimaryCommands>
                 <AppBarButton
-                    Label="Back"
-                    Icon="Back"
-                    Command="{Binding Path=BackCommand, Mode=OneWay}"/>
+                    Label="List"
+                    Icon="ViewAll"
+                    Command="{Binding Path=OpenEpisodeSummaryCommand, Mode=OneWay}"/>
                 <AppBarButton
                     Label="Refresh"
                     Icon="Refresh"

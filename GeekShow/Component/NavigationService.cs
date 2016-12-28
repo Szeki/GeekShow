@@ -21,5 +21,10 @@ namespace GeekShow.Component
         {
             ((Frame)(Window.Current.Content)).GoBack();
         }
+
+        public void GoHome()
+        {
+            ((Frame)(Window.Current.Content)).Navigate(typeof(MainPage));
+        }
     }
 }
