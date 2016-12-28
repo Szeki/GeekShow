@@ -1,6 +1,7 @@
 ﻿using GeekShow.Core.Component;
 using GeekShow.Core.Model;
 using GeekShow.Core.Model.TvMaze;
+using GeekShow.Core.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace GeekShow.Shared.Component
 
         readonly ITvShowPersistManager _persistManager;
         readonly INotificationManager _notificationManager;
+        readonly ISettingsService _settingsService;
 
         readonly static TimeSpan NotificationTimeSpan = new TimeSpan(6, 5, 0);
 
@@ -21,10 +23,11 @@ namespace GeekShow.Shared.Component
 
         #region Constructor
 
-        public TvShowNotifier(ITvShowPersistManager persistManager, INotificationManager notificationManager)
+        public TvShowNotifier(ITvShowPersistManager persistManager, INotificationManager notificationManager, ISettingsService settingsService)
         {
             _persistManager = persistManager;
             _notificationManager = notificationManager;
+            _settingsService = settingsService;
         }
 
         #endregion
@@ -33,6 +36,11 @@ namespace GeekShow.Shared.Component
 
         public async Task CalculateAndSendNotificationsAsync()
         {
+            if (!SettingsHelper.GetNotificationSetting(_settingsService))
+            {
+                return;
+            }
+
             var now = DateTimeOffset.Now;
             var tvShows = _persistManager.LoadTvShowsAsync();
             var notifiedTvShows = await _persistManager.LoadNotifiedTvShowsAsync();

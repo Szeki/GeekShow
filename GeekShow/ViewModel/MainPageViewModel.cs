@@ -1,5 +1,8 @@
-﻿using GeekShow.Core.Model;
+﻿using GeekShow.Component;
+using GeekShow.Core.Model;
 using GeekShow.Shared.Component;
+using GeekShow.View;
+using System.Windows.Input;
 
 namespace GeekShow.ViewModel
 {
@@ -8,6 +11,8 @@ namespace GeekShow.ViewModel
         #region Members
 
         int _selectedMenuIndex;
+
+        RelayCommand _openSettingsCommand;
 
         #endregion
 
@@ -55,6 +60,14 @@ namespace GeekShow.ViewModel
             private set;
         }
 
+        public ICommand OpenSettingsCommand
+        {
+            get
+            {
+                return _openSettingsCommand ?? (_openSettingsCommand = new RelayCommand(param => OpenSettings()));
+            }
+        }
+
         #endregion
 
         #region Public Methods
@@ -68,6 +81,15 @@ namespace GeekShow.ViewModel
         public void SelectViewModel(MainPageItems item)
         {
             SelectedMenuIndex = item == MainPageItems.List ? 0 : 1;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void OpenSettings()
+        {
+            NavigationService.Navigate(typeof(SettingsPage));
         }
 
         #endregion

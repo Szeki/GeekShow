@@ -11,8 +11,9 @@ namespace GeekShow.Tasks
 
             var persistManager = new TvShowPersistManager();
             var notificationManager = new NotificationManager();
+            var settingsService = new SettingsService();
 
-            await new TvShowNotifier(persistManager, notificationManager).CalculateAndSendNotificationsAsync();
+            await new TvShowNotifier(persistManager, notificationManager, settingsService).CalculateAndSendNotificationsAsync();
 
             deferral.Complete();
         }

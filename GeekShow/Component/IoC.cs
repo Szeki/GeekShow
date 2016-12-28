@@ -17,14 +17,16 @@ namespace GeekShow.Component
             container.RegisterType<NavigationService>().As<INavigationService>();
             container.RegisterType<TvShowPersistManager>().As<ITvShowPersistManager>();
             container.RegisterType<MessageBoxPopupService>().As<IPopupMessageService>();
-            container.RegisterType<TvMazeService>().As<Core.Service.ITvShowService>();
-            
+            container.RegisterType<TvMazeService>().As<ITvShowService>();
+            container.RegisterType<SettingsService>().As<ISettingsService>();
+
             container.RegisterType<MainPageViewModel>().AsSelf();
             container.RegisterType<SearchTvShowViewModel>().AsSelf();
             container.RegisterType<ListMyTvShowViewModel>().AsSelf();
             container.RegisterType<TvShowSearchItemDetailsViewModel>().AsSelf();
             container.RegisterType<TvShowSubscribedItemDetailsViewModel>().AsSelf();
             container.RegisterType<EpisodeSummaryViewModel>().AsSelf();
+            container.RegisterType<SettingsPageViewModel>().AsSelf();
 
             scope = container.Build().BeginLifetimeScope();
         }

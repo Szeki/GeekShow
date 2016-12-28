@@ -50,6 +50,7 @@
     <Compile Include="Model\TvMaze\TvMazeSeason.cs" />
     <Compile Include="Model\TvMaze\TvMazeTvShow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ISettingsService.cs" />
     <Compile Include="Service\ITvShowPersistManager.cs" />
     <Compile Include="Service\ITvShowService.cs" />
     <Compile Include="Service\TvMazeService.cs" />

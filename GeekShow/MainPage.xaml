@@ -71,4 +71,15 @@
             </PivotItem>
         </Pivot>
     </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Minimal">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton
+                    Label="Settings"
+                    Icon="Setting"
+                    Command="{Binding Path=OpenSettingsCommand, Mode=OneWay}"/>
+            </CommandBar.PrimaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

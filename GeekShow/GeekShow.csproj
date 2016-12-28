@@ -97,6 +97,7 @@
     <Compile Include="ViewModel\ListMyTvShowViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\SearchTvShowViewModel.cs" />
+    <Compile Include="ViewModel\SettingsPageViewModel.cs" />
     <Compile Include="ViewModel\TvShowSearchItemDetailsViewModel.cs" />
     <Compile Include="ViewModel\TvShowSubscribedItemDetailsViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -112,6 +113,9 @@
     </Compile>
     <Compile Include="View\SearchTvShowView.xaml.cs">
       <DependentUpon>SearchTvShowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TvShowSearchItemDetailsPage.xaml.cs">
       <DependentUpon>TvShowSearchItemDetailsPage.xaml</DependentUpon>
@@ -155,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\SearchTvShowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
